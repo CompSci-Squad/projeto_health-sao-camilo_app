@@ -6,15 +6,15 @@ const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON;
 
 if (!supabaseUrl || !supabaseAnonKey) {
-	console.error("define the env variables");
-	process.exit(1);
+  console.error("define the env variables");
+  process.exit(1);
 }
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-	auth: {
-		storage: AsyncStorage,
-		autoRefreshToken: true,
-		persistSession: true,
-		detectSessionInUrl: false,
-	},
+  auth: {
+    storage: AsyncStorage,
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: false,
+  },
 });
