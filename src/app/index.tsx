@@ -12,8 +12,8 @@ import {
   EyeIcon,
   EyeOffIcon,
   InputIcon,
-  VStack,
 } from "@gluestack-ui/themed";
+import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -23,6 +23,7 @@ type LoginFormValues = {
 };
 
 export default () => {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const { register, setValue, handleSubmit } = useForm<LoginFormValues>();
 
@@ -86,7 +87,11 @@ export default () => {
         >
           <ButtonText>Login</ButtonText>
         </Button>
-        <Button mt="$4" bgColor="$hospitalGreen">
+        <Button
+          mt="$4"
+          bgColor="$hospitalGreen"
+          onPress={() => router.navigate("/signup")}
+        >
           <ButtonText>Cadastro</ButtonText>
         </Button>
       </Box>

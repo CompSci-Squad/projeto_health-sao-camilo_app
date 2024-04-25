@@ -134,6 +134,8 @@ const config = createConfig({
       info700: "#5B21B6",
       info800: "#4C1D95",
       info900: "#441e7d",
+
+      hospitalGreen: "#619776",
     },
     space: {
       ...defaultConfig.tokens.space,
