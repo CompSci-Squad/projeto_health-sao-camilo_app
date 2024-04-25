@@ -20,6 +20,15 @@ export default function TabLayout() {
           tabBarShowLabel: false,
         }}
       />
+      <Tabs.Screen
+        name="medications"
+        options={{
+          tabBarIcon: ({ color }) => (
+            <FontAwesome size={28} name="home" color={color} />
+          ),
+          tabBarShowLabel: false,
+        }}
+      />
     </Tabs>
   );
 }
