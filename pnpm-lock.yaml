@@ -16,7 +16,7 @@ dependencies:
     version: 1.1.18(@gluestack-style/react@1.0.52)(@gluestack-ui/themed@1.1.18)
   '@gluestack-ui/themed':
     specifier: ^1.1.18
-    version: 1.1.18(@gluestack-style/react@1.0.52)(@types/react-native@0.73.0)(nativewind@2.0.11)(react-dom@18.2.0)(react-native-svg@13.4.0)(react-native-web@0.19.10)(react-native@0.73.6)(react@18.2.0)
+    version: 1.1.18(@gluestack-style/react@1.0.52)(@types/react-native@0.73.0)(nativewind@2.0.11)(react-dom@18.2.0)(react-native-svg@14.1.0)(react-native-web@0.19.10)(react-native@0.73.6)(react@18.2.0)
   '@react-native-async-storage/async-storage':
     specifier: 1.21.0
     version: 1.21.0(react-native@0.73.6)
@@ -56,6 +56,9 @@ dependencies:
   react-dom:
     specifier: 18.2.0
     version: 18.2.0(react@18.2.0)
+  react-hook-form:
+    specifier: ^7.51.3
+    version: 7.51.3(react@18.2.0)
   react-native:
     specifier: 0.73.6
     version: 0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3)(react@18.2.0)
@@ -69,8 +72,8 @@ dependencies:
     specifier: ~3.29.0
     version: 3.29.0(react-native@0.73.6)(react@18.2.0)
   react-native-svg:
-    specifier: 13.4.0
-    version: 13.4.0(react-native@0.73.6)(react@18.2.0)
+    specifier: 14.1.0
+    version: 14.1.0(react-native@0.73.6)(react@18.2.0)
   react-native-url-polyfill:
     specifier: ^2.0.0
     version: 2.0.0(react-native@0.73.6)
@@ -2584,7 +2587,7 @@ packages:
       '@gluestack-ui/themed': '>=1.1'
     dependencies:
       '@gluestack-style/react': 1.0.52
-      '@gluestack-ui/themed': 1.1.18(@gluestack-style/react@1.0.52)(@types/react-native@0.73.0)(nativewind@2.0.11)(react-dom@18.2.0)(react-native-svg@13.4.0)(react-native-web@0.19.10)(react-native@0.73.6)(react@18.2.0)
+      '@gluestack-ui/themed': 1.1.18(@gluestack-style/react@1.0.52)(@types/react-native@0.73.0)(nativewind@2.0.11)(react-dom@18.2.0)(react-native-svg@14.1.0)(react-native-web@0.19.10)(react-native@0.73.6)(react@18.2.0)
     dev: false
 
   /@gluestack-ui/divider@0.1.8(react-dom@18.2.0)(react@18.2.0):
@@ -2939,7 +2942,7 @@ packages:
       - react-native
     dev: false
 
-  /@gluestack-ui/themed@1.1.18(@gluestack-style/react@1.0.52)(@types/react-native@0.73.0)(nativewind@2.0.11)(react-dom@18.2.0)(react-native-svg@13.4.0)(react-native-web@0.19.10)(react-native@0.73.6)(react@18.2.0):
+  /@gluestack-ui/themed@1.1.18(@gluestack-style/react@1.0.52)(@types/react-native@0.73.0)(nativewind@2.0.11)(react-dom@18.2.0)(react-native-svg@14.1.0)(react-native-web@0.19.10)(react-native@0.73.6)(react@18.2.0):
     resolution: {integrity: sha512-4RhumfZM89KLkaAqHwW98Cv2oAih4mlv9TiOBYTTiUhW7Ipr7BxwGHx9VSgYFpi4v1XMwied8/rNzegaRBQ1lg==}
     peerDependencies:
       '@gluestack-style/react': '>=1.0'
@@ -2989,7 +2992,7 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       react-native: 0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3)(react@18.2.0)
-      react-native-svg: 13.4.0(react-native@0.73.6)(react@18.2.0)
+      react-native-svg: 14.1.0(react-native@0.73.6)(react@18.2.0)
       react-native-web: 0.19.10(react-dom@18.2.0)(react@18.2.0)
     transitivePeerDependencies:
       - nativewind
@@ -11844,6 +11847,15 @@ packages:
       shallowequal: 1.1.0
     dev: false
 
+  /react-hook-form@7.51.3(react@18.2.0):
+    resolution: {integrity: sha512-cvJ/wbHdhYx8aviSWh28w9ImjmVsb5Y05n1+FW786vEZQJV5STNM0pW6ujS+oiBecb0ARBxJFyAnXj9+GHXACQ==}
+    engines: {node: '>=12.22.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18
+    dependencies:
+      react: 18.2.0
+    dev: false
+
   /react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
@@ -11917,8 +11929,8 @@ packages:
       react-native: 0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3)(react@18.2.0)
     dev: false
 
-  /react-native-svg@13.4.0(react-native@0.73.6)(react@18.2.0):
-    resolution: {integrity: sha512-B3TwK+H0+JuRhYPzF21AgqMt4fjhCwDZ9QUtwNstT5XcslJBXC0FoTkdZo8IEb1Sv4suSqhZwlAY6lwOv3tHag==}
+  /react-native-svg@14.1.0(react-native@0.73.6)(react@18.2.0):
+    resolution: {integrity: sha512-HeseElmEk+AXGwFZl3h56s0LtYD9HyGdrpg8yd9QM26X+d7kjETrRQ9vCjtxuT5dCZEIQ5uggU1dQhzasnsCWA==}
     peerDependencies:
       react: '*'
       react-native: '*'
