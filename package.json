@@ -20,9 +20,11 @@
     "@gluestack-style/react": "^1.0.52",
     "@gluestack-ui/config": "^1.1.18",
     "@gluestack-ui/themed": "^1.1.18",
+    "@hookform/resolvers": "^3.3.4",
     "@react-native-async-storage/async-storage": "1.21.0",
     "@react-navigation/native": "^6.0.2",
     "@supabase/supabase-js": "^2.41.1",
+    "@tanstack/react-query": "^5.32.1",
     "expo": "~50.0.14",
     "expo-font": "~11.10.3",
     "expo-linking": "~6.2.2",
@@ -40,7 +42,9 @@
     "react-native-screens": "~3.29.0",
     "react-native-svg": "14.1.0",
     "react-native-url-polyfill": "^2.0.0",
-    "react-native-web": "~0.19.6"
+    "react-native-web": "~0.19.6",
+    "zod": "^3.23.5",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
