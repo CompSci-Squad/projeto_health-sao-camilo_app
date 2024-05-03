@@ -91,11 +91,8 @@ const LoginPage = () => {
     supabase.auth
       .getSession()
       .then(({ data }) => {
-        if (data.session && data.session.expires_at! < Date.now()) {
-          console.log("entrou 2");
-        }
+        if (data.session && data.session.expires_at! < Date.now()) return;
         if (getUser()?.id === data.session?.user.id) {
-          console.log("entrou 3");
           toast.show({
             duration: 2000,
             placement: "top right",
