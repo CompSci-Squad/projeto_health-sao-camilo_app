@@ -15,12 +15,15 @@ import {
   useToast,
   HStack,
   Spinner,
+  FormControlError,
+  FormControlErrorIcon,
+  FormControlErrorText,
+  AlertCircleIcon,
 } from "@gluestack-ui/themed";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "expo-router";
 import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, SubmitErrorHandler, useForm } from "react-hook-form";
 
 import CustomToast from "../../components/CustomToast";
 import { LoginFormData } from "../../types/loginForm.type";
@@ -29,39 +32,38 @@ import { supabase } from "../../utils/supabase/supbase";
 import { LoginSchema } from "../../utils/validations/loginForm.validation";
 
 const LoginPage = () => {
-  const { data, isLoading, isFetching } = useQuery({
-    queryKey: ["session"],
-    queryFn: () => supabase.auth.getSession(),
-  });
-
-  const {
-    mutate,
-    data: loginData,
-    isPending,
-  } = useMutation({
-    mutationFn: (loginFormData: LoginFormData) => {
-      return supabase.auth.signInWithPassword({
-        email: loginFormData.email,
-        password: loginFormData.password,
-      });
-    },
-  });
-
   const router = useRouter();
   const toast = useToast();
   const { getUser, setUser } = useUserStore();
+  const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const { register, setValue, handleSubmit } = useForm<LoginFormData>({
+  const { control, handleSubmit } = useForm<LoginFormData>({
     resolver: zodResolver(LoginSchema),
   });
 
   const onSubmit = async (loginFormData: LoginFormData) => {
-    mutate(loginFormData);
-    if (loginData?.error) {
-      toast.show({});
+    setIsLoading(true);
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: loginFormData.email,
+      password: loginFormData.password,
+    });
+    console.log(data);
+    if (error) {
+      setIsLoading(false);
+      toast.show({
+        duration: 4000,
+        placement: "top right",
+        render: () => (
+          <CustomToast
+            title="login não efetuado"
+            message="login não foi efetuado, verifique os dados inseridos"
+            action="error"
+          />
+        ),
+      });
     }
-    if (loginData?.data.session) {
-      setUser(loginData.data.user);
+    if (data.session) {
+      setUser(data.user);
       toast.show({
         duration: 2000,
         placement: "top right",
@@ -69,32 +71,59 @@ const LoginPage = () => {
           <CustomToast
             title="login efetuado com sucesso"
             message="login foi efetuado com sucesso, em breve você será redirecionado"
-            action="success"
+            action="error"
           />
         ),
-        onCloseComplete: () => router.navigate("/tabs"),
+        onCloseComplete: () => {
+          setIsLoading(false);
+          router.navigate("/(tabs)");
+        },
       });
     }
   };
 
+  const onError: SubmitErrorHandler<LoginFormData> = (errors, e) => {
+    console.log(JSON.stringify(errors));
+  };
+
   const autoLogin = () => {
-    if (getUser()?.id === data?.data.session?.user.id) {
-      router.navigate("/tabs");
-    }
+    setIsLoading(true);
+    supabase.auth
+      .getSession()
+      .then(({ data }) => {
+        if (data.session && data.session.expires_at! < Date.now()) {
+          console.log("entrou 2");
+        }
+        if (getUser()?.id === data.session?.user.id) {
+          console.log("entrou 3");
+          toast.show({
+            duration: 2000,
+            placement: "top right",
+            render: () => (
+              <CustomToast
+                title="login efetuado com sucesso"
+                message="login foi efetuado com sucesso, em breve você será redirecionado"
+                action="error"
+              />
+            ),
+            onCloseComplete: () => {
+              setIsLoading(false);
+              router.navigate("/(tabs)");
+            },
+          });
+        }
+      })
+      .catch(() => console.log("erro"))
+      .finally(() => setIsLoading(false));
   };
 
   useEffect(() => {
     autoLogin();
   }, []);
 
-  useEffect(() => {
-    register("email");
-    register("password");
-  }, [register]);
-
-  if (isLoading || isFetching || isPending)
+  if (isLoading)
     return (
-      <HStack space="sm">
+      <HStack space="sm" flex={1} alignItems="center" justifyContent="center">
         <Spinner color="$hospitalGreen" />
         <Text size="md">Aguarde</Text>
       </HStack>
@@ -106,47 +135,71 @@ const LoginPage = () => {
       <Heading>Saúde em suas mãos</Heading>
       <Text mb="$4">Plataforma de autogerenciamento da saúde</Text>
       <Box w="$64">
-        <FormControl
-          isDisabled={false}
-          isInvalid={false}
-          isReadOnly={false}
-          isRequired={false}
-          size="md"
-        >
-          <Input
-            variant="rounded"
-            borderColor="$hospitalGreen"
-            borderWidth="$2"
-          >
-            <InputField
-              placeholder="Email"
-              type="text"
-              onChangeText={(text) => setValue("email", text)}
-            />
-          </Input>
+        <Controller
+          control={control}
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
+            <FormControl isInvalid={!!error}>
+              <Input
+                variant="rounded"
+                borderColor="$hospitalGreen"
+                borderWidth="$2"
+              >
+                <InputField
+                  placeholder="Email"
+                  type="text"
+                  onChangeText={(value) => onChange(value)}
+                  value={value}
+                />
+              </Input>
 
-          <Input
-            variant="rounded"
-            borderColor="$hospitalGreen"
-            borderWidth="$2"
-            mt="$3"
-          >
-            <InputField
-              placeholder="Senha"
-              type={showPassword ? "text" : "password"}
-              onChangeText={(text) => setValue("password", text)}
-            />
-            <InputSlot pr="$3" onPress={() => setShowPassword(!showPassword)}>
-              <InputIcon
-                as={showPassword ? EyeIcon : EyeOffIcon}
-                color="$black"
-              />
-            </InputSlot>
-          </Input>
-        </FormControl>
+              <FormControlError>
+                <FormControlErrorIcon as={AlertCircleIcon} />
+                <FormControlErrorText>{error?.message}</FormControlErrorText>
+              </FormControlError>
+            </FormControl>
+          )}
+          name="email"
+          rules={{ required: true }}
+        />
+        <Controller
+          control={control}
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
+            <FormControl isInvalid={!!error}>
+              <Input
+                variant="rounded"
+                borderColor="$hospitalGreen"
+                borderWidth="$2"
+                mt="$3"
+              >
+                <InputField
+                  placeholder="Senha"
+                  type={showPassword ? "text" : "password"}
+                  onChangeText={(value) => onChange(value)}
+                  value={value}
+                />
+                <InputSlot
+                  pr="$3"
+                  onPress={() => setShowPassword(!showPassword)}
+                >
+                  <InputIcon
+                    as={showPassword ? EyeIcon : EyeOffIcon}
+                    color="$black"
+                  />
+                </InputSlot>
+              </Input>
+              <FormControlError>
+                <FormControlErrorIcon as={AlertCircleIcon} />
+                <FormControlErrorText>{error?.message}</FormControlErrorText>
+              </FormControlError>
+            </FormControl>
+          )}
+          name="password"
+          rules={{ required: true }}
+        />
+
         <Button
           mt="$6"
-          onPress={handleSubmit(onSubmit)}
+          onPress={handleSubmit(onSubmit, onError)}
           bgColor="$hospitalGreen"
         >
           <ButtonText>Login</ButtonText>

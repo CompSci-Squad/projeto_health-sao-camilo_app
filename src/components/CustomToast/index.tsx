@@ -18,7 +18,7 @@ const CustomToast: React.FC<CustomToastProps> = ({
   action,
 }) => {
   return (
-    <Toast variant="solid" action={action}>
+    <Toast variant="solid" mt="$10" action={action}>
       <VStack space="xs">
         <ToastTitle>{title}</ToastTitle>
         <ToastDescription>{message}</ToastDescription>
