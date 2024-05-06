@@ -6,6 +6,6 @@ export type SignUpFormData = {
   name: string;
   gender: Gender;
   birthDate: string;
-  weight: number;
-  height: number;
+  weight: string | number;
+  height: string | number;
 };

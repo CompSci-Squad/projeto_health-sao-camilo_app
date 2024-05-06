@@ -22,7 +22,7 @@ import {
 } from "@gluestack-ui/themed";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "expo-router";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Controller, SubmitErrorHandler, useForm } from "react-hook-form";
 
 import CustomToast from "../../components/CustomToast";
@@ -86,37 +86,37 @@ const LoginPage = () => {
     console.log(JSON.stringify(errors));
   };
 
-  const autoLogin = () => {
-    setIsLoading(true);
-    supabase.auth
-      .getSession()
-      .then(({ data }) => {
-        if (data.session && data.session.expires_at! < Date.now()) return;
-        if (getUser()?.id === data.session?.user.id) {
-          toast.show({
-            duration: 2000,
-            placement: "top right",
-            render: () => (
-              <CustomToast
-                title="login efetuado com sucesso"
-                message="login foi efetuado com sucesso, em breve você será redirecionado"
-                action="error"
-              />
-            ),
-            onCloseComplete: () => {
-              setIsLoading(false);
-              router.navigate("/(tabs)");
-            },
-          });
-        }
-      })
-      .catch(() => console.log("erro"))
-      .finally(() => setIsLoading(false));
-  };
+  // const autoLogin = () => {
+  //   setIsLoading(true);
+  //   supabase.auth
+  //     .getSession()
+  //     .then(({ data }) => {
+  //       if (data.session && data.session.expires_at! < Date.now()) return;
+  //       if (getUser()?.id === data.session?.user.id) {
+  //         toast.show({
+  //           duration: 2000,
+  //           placement: "top right",
+  //           render: () => (
+  //             <CustomToast
+  //               title="login efetuado com sucesso"
+  //               message="login foi efetuado com sucesso, em breve você será redirecionado"
+  //               action="error"
+  //             />
+  //           ),
+  //           onCloseComplete: () => {
+  //             setIsLoading(false);
+  //             router.navigate("/(tabs)");
+  //           },
+  //         });
+  //       }
+  //     })
+  //     .catch(() => console.log("erro"))
+  //     .finally(() => setIsLoading(false));
+  // };
 
-  useEffect(() => {
-    autoLogin();
-  }, []);
+  // useEffect(() => {
+  //   autoLogin();
+  // }, []);
 
   if (isLoading)
     return (

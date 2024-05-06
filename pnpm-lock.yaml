@@ -32,6 +32,9 @@ dependencies:
   '@tanstack/react-query':
     specifier: ^5.32.1
     version: 5.32.1(react@18.2.0)
+  dayjs:
+    specifier: ^1.11.11
+    version: 1.11.11
   expo:
     specifier: ~50.0.14
     version: 50.0.14(@babel/core@7.24.3)(@react-native/babel-preset@0.73.21)
@@ -6953,8 +6956,8 @@ packages:
     resolution: {integrity: sha512-2P0p0pFGzHS5EMnhdxQi7aJN+iMheud0UhG4dlE1DLAlvL8JHjJJTX/CSm4JXwV0Ka5nGk3zC5mcb5bUQUxxMA==}
     dev: true
 
-  /dayjs@1.11.10:
-    resolution: {integrity: sha512-vjAczensTgRcqDERK0SR2XMwsF/tSvnvlv6VcF2GIhg6Sx4yOIt/irsr1RDJsKiIyBzJDpCoXiWWq28MqH2cnQ==}
+  /dayjs@1.11.11:
+    resolution: {integrity: sha512-okzr3f11N6WuqYtZSvm+F776mB41wRZMhKP+hc34YdW+KmtYYK9iqvHSwo2k9FEH3fhGXvOPV6yz2IcSrfRUDg==}
     dev: false
 
   /debug@2.6.9:
@@ -10404,7 +10407,7 @@ packages:
     hasBin: true
     dependencies:
       ansi-fragments: 0.2.1
-      dayjs: 1.11.10
+      dayjs: 1.11.11
       yargs: 15.4.1
     dev: false
 
