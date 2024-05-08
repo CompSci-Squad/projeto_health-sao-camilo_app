@@ -2101,8 +2101,8 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /@expo/html-elements@0.9.1:
-    resolution: {integrity: sha512-HOWw6tkOknG98CTTCaT3S+wRRcS00FY6v6JIc3b8LEcIxppFnNDDhxzvtdMbATzg+wQ6c2xxqfxA6FeibGNSNQ==}
+  /@expo/html-elements@0.10.1:
+    resolution: {integrity: sha512-3PTmtkV15D7+lykXVtvkH1jQ5Y6JE+e3zCaoMMux7z2cSLGQUNwDEUwG37gew3OEB1/E4/SEWgjvg8m7E6/e2Q==}
     dev: false
 
   /@expo/image-utils@0.4.1:
@@ -2968,7 +2968,7 @@ packages:
       react-native-svg: '>=13.4.0'
       react-native-web: '>=0.19'
     dependencies:
-      '@expo/html-elements': 0.9.1
+      '@expo/html-elements': 0.10.1
       '@gluestack-style/animation-resolver': 1.0.4(@gluestack-style/react@1.0.52)
       '@gluestack-style/legend-motion-animation-driver': 1.0.3(@gluestack-style/react@1.0.52)(@legendapp/motion@2.3.0)
       '@gluestack-style/react': 1.0.52

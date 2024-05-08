@@ -24,16 +24,45 @@ export const signUpUser = async (
       },
     ]);
 
-    const { data: userData } = await supabase.from("user_info").select("*").eq("auth_user_id", authData.user!.id)
+    const { data: userData } = await supabase
+      .from("user_info")
+      .select("*")
+      .eq("auth_user_id", authData.user!.id)
+      .single();
 
-    const [] = await Promise.allSettled([
+    await Promise.allSettled([
       supabase.from("height").insert([
         {
-          user_id: userData.,
+          user_id: userData?.id,
           value:
             typeof payload.height === "number"
               ? payload.height
-              : parseInt(payload.height),
+              : parseInt(payload.height, 10),
+        },
+      ]),
+      supabase.from("weight").insert([
+        {
+          user_id: userData?.id,
+          value:
+            typeof payload.weight === "number"
+              ? payload.weight
+              : parseInt(payload.weight, 10),
+        },
+      ]),
+      supabase.from("glucose").insert([
+        {
+          user_id: userData?.id,
+          value:
+            typeof payload.weight === "number"
+              ? payload.weight
+              : parseInt(payload.weight, 10),
+        },
+      ]),
+      supabase.from("pressure").insert([
+        {
+          user_id: userData?.id,
+          numerator: 0,
+          denominator: 0,
         },
       ]),
     ]);

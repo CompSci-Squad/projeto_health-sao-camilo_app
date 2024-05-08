@@ -36,9 +36,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import MaskInput from "react-native-mask-input";
+import { TextInputMask } from "react-native-masked-text";
 
 import { Gender } from "../../types/gender.enum";
 import { SignUpFormData } from "../../types/signupForm.type";
+import { heightMask } from "../../utils/masks";
 import { useUserStore } from "../../utils/stores/userStore";
 import { SignUpSchema } from "../../utils/validations/singupForm.validation";
 
@@ -54,8 +57,7 @@ const SignUpScreen = () => {
   });
 
   const onSubmit = (data: any) => {
-    
-
+    console.log(data);
   };
 
   if (isLoading)
@@ -209,8 +211,9 @@ const SignUpScreen = () => {
                 <InputField
                   placeholder="Altura em cm"
                   type="text"
-                  onChangeText={(value) => onChange(value)}
+                  onChangeText={(value) => onChange(heightMask(value))}
                   value={value}
+                  keyboardType="numeric"
                 />
               </Input>
 
@@ -239,6 +242,7 @@ const SignUpScreen = () => {
                   type="text"
                   onChangeText={(value) => onChange(value)}
                   value={value}
+                  keyboardType="numeric"
                 />
               </Input>
 
