@@ -15,6 +15,8 @@ export const signUpUser = async (
       password: payload.password,
     });
 
+    if (error) return error;
+
     await supabase.from("user_info").insert([
       {
         name: payload.name,
@@ -34,37 +36,31 @@ export const signUpUser = async (
       supabase.from("height").insert([
         {
           user_id: userData?.id,
-          value:
-            typeof payload.height === "number"
-              ? payload.height
-              : parseInt(payload.height, 10),
+          value: parseInt(payload.height, 10),
         },
       ]),
       supabase.from("weight").insert([
         {
           user_id: userData?.id,
-          value:
-            typeof payload.weight === "number"
-              ? payload.weight
-              : parseInt(payload.weight, 10),
+          value: parseInt(payload.weight, 10),
         },
       ]),
       supabase.from("glucose").insert([
         {
           user_id: userData?.id,
-          value:
-            typeof payload.weight === "number"
-              ? payload.weight
-              : parseInt(payload.weight, 10),
+          value: parseInt(payload.glucose, 10),
         },
       ]),
       supabase.from("pressure").insert([
         {
           user_id: userData?.id,
-          numerator: 0,
-          denominator: 0,
+          numerator: parseInt(payload.pressure.split("/")[0], 10),
+          denominator: parseInt(payload.pressure.split("/")[1], 10),
         },
       ]),
     ]);
-  } catch (error) {}
+    return userData;
+  } catch (error) {
+    console.log(error);
+  }
 };

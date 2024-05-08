@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import { ZodType, z } from "zod";
 
 import { Gender } from "../../types/gender.enum";
@@ -16,8 +15,20 @@ export const SignUpSchema: ZodType<SignUpFormData> = z.object({
   birthDate: z
     .string()
     .regex(/^\d{2}\/\d{2}\/\d{4}$/)
-    .refine(validateDate)
-    .transform((value) => dayjs(value).format("YYYY-MM-DD")), // yyyy-mm-dd
-  weight: z.string().transform((value) => parseInt(value, 10)),
-  height: z.string().transform((value) => parseInt(value, 10)),
+    .refine(validateDate),
+  weight: z.string().refine((value) => !isNaN(parseFloat(value)), {
+    message: "Not a valid number",
+  }),
+  height: z.string().refine((value) => !isNaN(parseFloat(value)), {
+    message: "Not a valid number",
+  }),
+  pressure: z
+    .string()
+    .refine(
+      (value) =>
+        !isNaN(
+          parseFloat(value.split("/")[0]) && parseFloat(value.split("/")[1]),
+        ),
+    ),
+  glucose: z.string().refine((value) => !isNaN(parseFloat(value))),
 });

@@ -34,7 +34,7 @@ import { LoginSchema } from "../../utils/validations/loginForm.validation";
 const LoginPage = () => {
   const router = useRouter();
   const toast = useToast();
-  const { getUser, setUser } = useUserStore();
+  const { setUser } = useUserStore();
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const { control, handleSubmit } = useForm<LoginFormData>({

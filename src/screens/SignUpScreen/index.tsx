@@ -36,12 +36,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import MaskInput from "react-native-mask-input";
-import { TextInputMask } from "react-native-masked-text";
 
 import { Gender } from "../../types/gender.enum";
 import { SignUpFormData } from "../../types/signupForm.type";
-import { heightMask } from "../../utils/masks";
 import { useUserStore } from "../../utils/stores/userStore";
 import { SignUpSchema } from "../../utils/validations/singupForm.validation";
 
@@ -50,14 +47,16 @@ const SignUpScreen = () => {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { getUser, setUser } = useUserStore();
+  const { setUser } = useUserStore();
 
   const { control, handleSubmit } = useForm<SignUpFormData>({
     resolver: zodResolver(SignUpSchema),
   });
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: SignUpFormData) => {
+    setIsLoading(true);
     console.log(data);
+    setIsLoading(false);
   };
 
   if (isLoading)
@@ -211,7 +210,7 @@ const SignUpScreen = () => {
                 <InputField
                   placeholder="Altura em cm"
                   type="text"
-                  onChangeText={(value) => onChange(heightMask(value))}
+                  onChangeText={(value) => onChange(value)}
                   value={value}
                   keyboardType="numeric"
                 />
