@@ -1,5 +1,1 @@
-export enum Gender {
-  MALE = "MALE",
-  FEMALE = "FEMALE",
-  OTHER = "OTHER",
-}
+export type Gender = "MALE" | "FEMALE" | "OTHER";

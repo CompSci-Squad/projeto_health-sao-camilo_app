@@ -253,25 +253,28 @@ export type Database = {
           auth_user_id: string | null;
           birth_date: string;
           created_at: string;
-          gender: Database["public"]["Enums"]["gender"] | null;
+          gender: Database["public"]["Enums"]["gender"];
           id: string;
           name: string;
+          profile_picture_url: string | null;
         };
         Insert: {
           auth_user_id?: string | null;
           birth_date: string;
           created_at?: string;
-          gender?: Database["public"]["Enums"]["gender"] | null;
+          gender: Database["public"]["Enums"]["gender"];
           id?: string;
           name: string;
+          profile_picture_url?: string | null;
         };
         Update: {
           auth_user_id?: string | null;
           birth_date?: string;
           created_at?: string;
-          gender?: Database["public"]["Enums"]["gender"] | null;
+          gender?: Database["public"]["Enums"]["gender"];
           id?: string;
           name?: string;
+          profile_picture_url?: string | null;
         };
         Relationships: [
           {

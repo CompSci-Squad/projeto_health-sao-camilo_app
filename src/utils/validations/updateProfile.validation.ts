@@ -1,14 +1,9 @@
 import { ZodType, z } from "zod";
 
-import { SignUpFormData } from "../../types/signupForm.type";
+import { ProfileFormData } from "../../types/profileForm.type";
 import { validateDate } from "../functions/validateDate";
 
-export const SignUpSchema: ZodType<SignUpFormData> = z.object({
-  email: z.string().email({ message: "valor inserido deve ser um email" }),
-  password: z
-    .string()
-    .min(8, { message: "senha deve ter no minimo 6 digitos" })
-    .max(255, { message: "senha deve ter no maximo 255 digitos" }),
+export const updateProfileSchema: ZodType<ProfileFormData> = z.object({
   name: z.string(),
   gender: z.enum(["MALE", "FEMALE", "OTHER"]),
   birthDate: z
@@ -24,10 +19,4 @@ export const SignUpSchema: ZodType<SignUpFormData> = z.object({
       // Create a new Date object and check if it's a valid date
       return new Date(year, month - 1, day).toISOString();
     }),
-  weight: z.string().refine((value) => !isNaN(parseFloat(value)), {
-    message: "Not a valid number",
-  }),
-  height: z.string().refine((value) => !isNaN(parseFloat(value)), {
-    message: "Not a valid number",
-  }),
 });

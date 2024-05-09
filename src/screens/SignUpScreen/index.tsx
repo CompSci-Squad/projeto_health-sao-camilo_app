@@ -223,7 +223,7 @@ const SignUpScreen = () => {
                       <SelectDragIndicatorWrapper>
                         <SelectDragIndicator />
                       </SelectDragIndicatorWrapper>
-                      {Object.values(Gender).map((genero) => (
+                      {["MALE", "FEMALE", "OTHER"].map((genero) => (
                         <SelectItem
                           label={genero}
                           value={genero}

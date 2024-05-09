@@ -3,12 +3,14 @@ import { Tabs } from "expo-router";
 import React from "react";
 import { Text } from "react-native";
 
+import Header from "../../components/Header";
+
 export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: "blue",
-        header: () => <Text>Puta</Text>,
+        header: () => <Header />,
       }}
     >
       <Tabs.Screen

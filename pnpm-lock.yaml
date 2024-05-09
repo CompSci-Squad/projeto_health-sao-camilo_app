@@ -59,6 +59,9 @@ dependencies:
   expo-web-browser:
     specifier: ~13.0.3
     version: 13.0.3(expo@51.0.0)
+  lucide-react-native:
+    specifier: ^0.378.0
+    version: 0.378.0(react-native-svg@15.2.0-rc.0)(react-native@0.74.1)(react@18.2.0)
   react:
     specifier: 18.2.0
     version: 18.2.0
@@ -10502,6 +10505,18 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       yallist: 4.0.0
+
+  /lucide-react-native@0.378.0(react-native-svg@15.2.0-rc.0)(react-native@0.74.1)(react@18.2.0):
+    resolution: {integrity: sha512-Xvqxjc3N5040Ui6tZaSbpNnNjWXDa+nRzYct4rXd2mWX+g2qxKPpEHoqNumrpky9rhsIxD8w4BSbjdkpGQTMYw==}
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0
+      react-native: '*'
+      react-native-svg: ^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0
+    dependencies:
+      react: 18.2.0
+      react-native: 0.74.1(@babel/core@7.24.3)(@babel/preset-env@7.24.3)(@types/react@18.2.79)(react@18.2.0)
+      react-native-svg: 15.2.0-rc.0(react-native@0.74.1)(react@18.2.0)
+    dev: false
 
   /make-dir@2.1.0:
     resolution: {integrity: sha512-LS9X+dc8KLxXCb8dni79fLIIUA5VyZoyjSMCwTluaXA0o27cCK0bhXkpgw+sTXVpPy/lSO57ilRixqk0vDmtRA==}

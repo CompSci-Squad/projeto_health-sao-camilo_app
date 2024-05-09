@@ -68,7 +68,12 @@ const LoginPage = () => {
       });
     }
     if (data.session) {
-      setUser(data.user);
+      // const { data: userData } = await supabase
+      //   .from("user_info")
+      //   .select("*")
+      //   .eq("auth_user_id", data.user.id)
+      //   .single();
+      // setUser(userData);
       toast.show({
         duration: 2000,
         placement: "top right",
