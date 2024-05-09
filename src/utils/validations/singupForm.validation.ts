@@ -15,20 +15,20 @@ export const SignUpSchema: ZodType<SignUpFormData> = z.object({
   birthDate: z
     .string()
     .regex(/^\d{2}\/\d{2}\/\d{4}$/)
-    .refine(validateDate),
+    .refine(validateDate)
+    .transform((value) => {
+      const parts = value.split("/");
+      const month = parseInt(parts[1], 10);
+      const day = parseInt(parts[0], 10);
+      const year = parseInt(parts[2], 10);
+
+      // Create a new Date object and check if it's a valid date
+      return new Date(year, month - 1, day).toISOString();
+    }),
   weight: z.string().refine((value) => !isNaN(parseFloat(value)), {
     message: "Not a valid number",
   }),
   height: z.string().refine((value) => !isNaN(parseFloat(value)), {
     message: "Not a valid number",
   }),
-  pressure: z
-    .string()
-    .refine(
-      (value) =>
-        !isNaN(
-          parseFloat(value.split("/")[0]) && parseFloat(value.split("/")[1]),
-        ),
-    ),
-  glucose: z.string().refine((value) => !isNaN(parseFloat(value))),
 });

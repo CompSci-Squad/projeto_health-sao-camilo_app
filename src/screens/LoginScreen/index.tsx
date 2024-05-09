@@ -19,6 +19,7 @@ import {
   FormControlErrorIcon,
   FormControlErrorText,
   AlertCircleIcon,
+  Image,
 } from "@gluestack-ui/themed";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "expo-router";
@@ -40,6 +41,10 @@ const LoginPage = () => {
   const { control, handleSubmit } = useForm<LoginFormData>({
     resolver: zodResolver(LoginSchema),
   });
+
+  const imageUri = supabase.storage
+    .from("assets")
+    .getPublicUrl("logoAppSao-Camilo.jpg").data.publicUrl;
 
   const onSubmit = async (loginFormData: LoginFormData) => {
     setIsLoading(true);
@@ -128,7 +133,13 @@ const LoginPage = () => {
 
   return (
     <Center flex={1} justifyContent="center" alignItems="center">
-      {/* <Image /> */}
+      <Image
+        source={{
+          uri: imageUri,
+        }}
+        size="lg"
+        alt="logo"
+      />
       <Heading>Saúde em suas mãos</Heading>
       <Text mb="$4">Plataforma de autogerenciamento da saúde</Text>
       <Box w="$64">

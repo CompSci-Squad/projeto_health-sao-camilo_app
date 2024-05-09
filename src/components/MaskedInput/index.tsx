@@ -9,6 +9,8 @@ const MaskedInput = ({
   keyboardType,
   onChangeText,
   placeholder,
+  options,
+  ...rest
 }: MaskedTextInputProps) => {
   return (
     <MaskedTextInput
@@ -19,6 +21,8 @@ const MaskedInput = ({
       keyboardType={keyboardType}
       placeholder={placeholder}
       style={styles.container}
+      options={options}
+      {...rest}
     />
   );
 };
