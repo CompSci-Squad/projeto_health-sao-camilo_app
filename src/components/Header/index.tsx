@@ -13,16 +13,13 @@ const Header = () => {
     .from("assets")
     .getPublicUrl("logoAppSao-Camilo.jpg").data.publicUrl;
 
-  const firstPathName = pathName.split("/")[1];
-
   return (
     <HStack
       display="flex"
       justifyContent="space-between"
       alignItems="center"
       paddingHorizontal="$4"
-      paddingTop="$8"
-      paddingBottom="$3"
+      paddingVertical="$4"
       backgroundColor="white"
     >
       <Image
@@ -35,7 +32,7 @@ const Header = () => {
       />
 
       <Text fontWeight="$bold">
-        {changeRouteName(firstPathName.toUpperCase())}
+        {changeRouteName(pathName.toUpperCase().split("/")[1])}
       </Text>
 
       <Button
