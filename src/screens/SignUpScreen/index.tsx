@@ -35,7 +35,7 @@ import {
   Image,
 } from "@gluestack-ui/themed";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AuthError } from "@supabase/supabase-js";
+import { AuthError, PostgrestError } from "@supabase/supabase-js";
 import dayjs from "dayjs";
 import { useRouter } from "expo-router";
 import { useState } from "react";
@@ -68,24 +68,51 @@ const SignUpScreen = () => {
 
   const onSubmit = async (data: SignUpFormData) => {
     setIsLoading(true);
-    // const response = await signUpUser(data);
-    // if (response instanceof AuthError) {
-    //   setIsLoading(false);
-    //   toast.show({
-    //     duration: 6000,
-    //     placement: "top right",
-    //     render: () => (
-    //       <CustomToast
-    //         title="login não efetuado"
-    //         message="login não foi efetuado, verifique os dados inseridos"
-    //         action="error"
-    //       />
-    //     ),
-    //   });
-    //   return;
-    // }
-
-    setIsLoading(false);
+    const response = await signUpUser(data);
+    if (response instanceof AuthError) {
+      setIsLoading(false);
+      toast.show({
+        duration: 6000,
+        placement: "top right",
+        render: () => (
+          <CustomToast
+            title="login não efetuado"
+            message="login não foi efetuado, verifique os dados inseridos"
+            action="error"
+          />
+        ),
+      });
+    } else if (typeof response === PostgrestError) {
+      setIsLoading(false);
+      toast.show({
+        duration: 6000,
+        placement: "top right",
+        render: () => (
+          <CustomToast
+            title="login não efetuado"
+            message="login não foi efetuado, verifique os dados inseridos"
+            action="error"
+          />
+        ),
+      });
+    } else {
+      setUser(response);
+      toast.show({
+        duration: 6000,
+        placement: "top right",
+        render: () => (
+          <CustomToast
+            title="cadastro efetuado"
+            message="cadastro efetuado com sucesso, aguarde para ser redirecionado a pagina principal"
+            action="success"
+          />
+        ),
+        onCloseComplete: () => {
+          setIsLoading(false);
+          router.navigate("/(tabs)");
+        },
+      });
+    }
   };
 
   const onError: SubmitErrorHandler<SignUpFormData> = (errors, e) => {
@@ -252,7 +279,7 @@ const SignUpScreen = () => {
                   keyboardType="numeric"
                   placeholder="Altura em cm"
                   value={value}
-                  mask="99CM"
+                  mask="999CM"
                 />
 
                 <FormControlError>
@@ -316,6 +343,7 @@ const SignUpScreen = () => {
             mt="$6"
             onPress={handleSubmit(onSubmit, onError)}
             bgColor="$hospitalGreen"
+            $pressed-bg="$darkHospitalGreen"
           >
             <ButtonText>Cadastrar</ButtonText>
           </Button>

@@ -13,7 +13,10 @@ import {
   HStack,
   Spinner,
   Text,
+  Box,
   useToast,
+  FormControlLabel,
+  FormControlLabelText,
 } from "@gluestack-ui/themed";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "expo-router";
@@ -21,6 +24,7 @@ import { useState } from "react";
 import { Controller, useForm, SubmitErrorHandler } from "react-hook-form";
 
 import CustomToast from "../../components/CustomToast";
+import ProfileImage from "../../components/ProfileImage";
 import { ProfileFormData } from "../../types/profileForm.type";
 import { updateProfile } from "../../utils/functions/updateProfile";
 import { uploadProfilePicture } from "../../utils/functions/uploadProfilePicture";
@@ -72,6 +76,7 @@ const ProfileScreen = () => {
       setIsLoading(false);
     }
   };
+  console.log(user);
 
   const onError: SubmitErrorHandler<ProfileFormData> = (errors, e) => {
     console.log(JSON.stringify(errors));
@@ -86,12 +91,21 @@ const ProfileScreen = () => {
     );
 
   return (
-    <ScrollView contentContainerStyle={{ paddingVertical: 60 }}>
-      <Center display="flex" justifyContent="center" alignItems="center">
+    <Center
+      flex={1}
+      justifyContent="center"
+      alignItems="center"
+      flexDirection="column"
+    >
+      <Box w="$64">
+        <ProfileImage profile_url={user?.profile_picture_url} />
         <Controller
           control={control}
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <FormControl isInvalid={!!error}>
+              <FormControlLabel>
+                <FormControlLabelText>Nome:</FormControlLabelText>
+              </FormControlLabel>
               <Input
                 variant="rounded"
                 borderColor="$hospitalGreen"
@@ -115,16 +129,16 @@ const ProfileScreen = () => {
           name="name"
           rules={{ required: true }}
         />
+      </Box>
 
-        <Button
-          mt="$6"
-          onPress={handleSubmit(onSubmit, onError)}
-          bgColor="$hospitalGreen"
-        >
-          <ButtonText>Atualizar</ButtonText>
-        </Button>
-      </Center>
-    </ScrollView>
+      <Button
+        mt="$6"
+        onPress={handleSubmit(onSubmit, onError)}
+        bgColor="$hospitalGreen"
+      >
+        <ButtonText>Atualizar</ButtonText>
+      </Button>
+    </Center>
   );
 };
 

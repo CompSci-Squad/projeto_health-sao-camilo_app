@@ -17,18 +17,17 @@ export const signUpUser = async (payload: Payload) => {
 
     if (error) return error;
 
-    const { status, error: userError } = await supabase
-      .from("user_info")
-      .insert([
-        {
-          name: payload.name,
-          gender: payload.gender,
-          birth_date: dayjs(payload.birthDate).format("YYYY-MM-DD"),
-          auth_user_id: authData.user!.id,
-        },
-      ]);
+    const { error: userError } = await supabase.from("user_info").insert([
+      {
+        name: payload.name,
+        gender: payload.gender,
+        birth_date: dayjs(payload.birthDate).format("YYYY-MM-DD"),
+        auth_user_id: authData.user!.id,
+      },
+    ]);
 
-    console.log(status, userError);
+    console.log(userError);
+    if (userError) return userError;
 
     const { data: userData } = await supabase
       .from("user_info")
@@ -36,7 +35,6 @@ export const signUpUser = async (payload: Payload) => {
       .eq("auth_user_id", authData.user!.id)
       .single();
 
-    console.log(userData);
     await Promise.allSettled([
       supabase.from("height").insert([
         {
@@ -52,5 +50,8 @@ export const signUpUser = async (payload: Payload) => {
       ]),
     ]);
     return userData;
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 };
