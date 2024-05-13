@@ -6,7 +6,6 @@ import {
   Button,
   Icon,
 } from "@gluestack-ui/themed";
-import { User2, User2Icon } from "lucide-react-native";
 
 type ProfileImageProps = {
   profile_url: string | undefined | null;

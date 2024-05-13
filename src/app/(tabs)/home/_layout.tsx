@@ -4,11 +4,7 @@ export default function Home() {
   return (
     <Stack>
       <Stack.Screen
-        name="home"
-        options={{ headerShown: false, navigationBarHidden: true }}
-      />
-      <Stack.Screen
-        name="test"
+        name="homeIndex"
         options={{ headerShown: false, navigationBarHidden: true }}
       />
     </Stack>
