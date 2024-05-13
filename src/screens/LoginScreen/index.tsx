@@ -19,10 +19,11 @@ import {
   FormControlErrorIcon,
   FormControlErrorText,
   AlertCircleIcon,
+  Image,
 } from "@gluestack-ui/themed";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "expo-router";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Controller, SubmitErrorHandler, useForm } from "react-hook-form";
 
 import CustomToast from "../../components/CustomToast";
@@ -34,12 +35,16 @@ import { LoginSchema } from "../../utils/validations/loginForm.validation";
 const LoginPage = () => {
   const router = useRouter();
   const toast = useToast();
-  const { getUser, setUser } = useUserStore();
+  const { setUser } = useUserStore();
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const { control, handleSubmit } = useForm<LoginFormData>({
     resolver: zodResolver(LoginSchema),
   });
+
+  const imageUri = supabase.storage
+    .from("assets")
+    .getPublicUrl("logoAppSao-Camilo.jpg").data.publicUrl;
 
   const onSubmit = async (loginFormData: LoginFormData) => {
     setIsLoading(true);
@@ -63,7 +68,12 @@ const LoginPage = () => {
       });
     }
     if (data.session) {
-      setUser(data.user);
+      // const { data: userData } = await supabase
+      //   .from("user_info")
+      //   .select("*")
+      //   .eq("auth_user_id", data.user.id)
+      //   .single();
+      // setUser(userData);
       toast.show({
         duration: 2000,
         placement: "top right",
@@ -86,37 +96,37 @@ const LoginPage = () => {
     console.log(JSON.stringify(errors));
   };
 
-  const autoLogin = () => {
-    setIsLoading(true);
-    supabase.auth
-      .getSession()
-      .then(({ data }) => {
-        if (data.session && data.session.expires_at! < Date.now()) return;
-        if (getUser()?.id === data.session?.user.id) {
-          toast.show({
-            duration: 2000,
-            placement: "top right",
-            render: () => (
-              <CustomToast
-                title="login efetuado com sucesso"
-                message="login foi efetuado com sucesso, em breve você será redirecionado"
-                action="error"
-              />
-            ),
-            onCloseComplete: () => {
-              setIsLoading(false);
-              router.navigate("/(tabs)");
-            },
-          });
-        }
-      })
-      .catch(() => console.log("erro"))
-      .finally(() => setIsLoading(false));
-  };
+  // const autoLogin = () => {
+  //   setIsLoading(true);
+  //   supabase.auth
+  //     .getSession()
+  //     .then(({ data }) => {
+  //       if (data.session && data.session.expires_at! < Date.now()) return;
+  //       if (getUser()?.id === data.session?.user.id) {
+  //         toast.show({
+  //           duration: 2000,
+  //           placement: "top right",
+  //           render: () => (
+  //             <CustomToast
+  //               title="login efetuado com sucesso"
+  //               message="login foi efetuado com sucesso, em breve você será redirecionado"
+  //               action="error"
+  //             />
+  //           ),
+  //           onCloseComplete: () => {
+  //             setIsLoading(false);
+  //             router.navigate("/(tabs)");
+  //           },
+  //         });
+  //       }
+  //     })
+  //     .catch(() => console.log("erro"))
+  //     .finally(() => setIsLoading(false));
+  // };
 
-  useEffect(() => {
-    autoLogin();
-  }, []);
+  // useEffect(() => {
+  //   autoLogin();
+  // }, []);
 
   if (isLoading)
     return (
@@ -128,7 +138,13 @@ const LoginPage = () => {
 
   return (
     <Center flex={1} justifyContent="center" alignItems="center">
-      {/* <Image /> */}
+      <Image
+        source={{
+          uri: imageUri,
+        }}
+        size="lg"
+        alt="logo"
+      />
       <Heading>Saúde em suas mãos</Heading>
       <Text mb="$4">Plataforma de autogerenciamento da saúde</Text>
       <Box w="$64">

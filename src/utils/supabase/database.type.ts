@@ -86,25 +86,25 @@ export type Database = {
         Row: {
           created_at: string;
           id: number;
-          userId: string | null;
+          user_id: string | null;
           value: number | null;
         };
         Insert: {
           created_at?: string;
           id?: number;
-          userId?: string | null;
+          user_id?: string | null;
           value?: number | null;
         };
         Update: {
           created_at?: string;
           id?: number;
-          userId?: string | null;
+          user_id?: string | null;
           value?: number | null;
         };
         Relationships: [
           {
-            foreignKeyName: "public_glucose_userId_fkey";
-            columns: ["userId"];
+            foreignKeyName: "glucose_user_id_fkey";
+            columns: ["user_id"];
             isOneToOne: false;
             referencedRelation: "user_info";
             referencedColumns: ["id"];
@@ -222,26 +222,26 @@ export type Database = {
           denominator: number | null;
           id: number;
           numerator: number | null;
-          userId: string | null;
+          user_id: string | null;
         };
         Insert: {
           created_at?: string;
           denominator?: number | null;
           id?: number;
           numerator?: number | null;
-          userId?: string | null;
+          user_id?: string | null;
         };
         Update: {
           created_at?: string;
           denominator?: number | null;
           id?: number;
           numerator?: number | null;
-          userId?: string | null;
+          user_id?: string | null;
         };
         Relationships: [
           {
-            foreignKeyName: "public_pressure_userId_fkey";
-            columns: ["userId"];
+            foreignKeyName: "pressure_user_id_fkey";
+            columns: ["user_id"];
             isOneToOne: false;
             referencedRelation: "user_info";
             referencedColumns: ["id"];
@@ -250,33 +250,36 @@ export type Database = {
       };
       user_info: {
         Row: {
+          auth_user_id: string | null;
           birth_date: string;
           created_at: string;
-          height: number | null;
+          gender: Database["public"]["Enums"]["gender"];
           id: string;
           name: string;
-          sex: Database["public"]["Enums"]["sex"] | null;
+          profile_picture_url: string | null;
         };
         Insert: {
+          auth_user_id?: string | null;
           birth_date: string;
           created_at?: string;
-          height?: number | null;
-          id: string;
+          gender: Database["public"]["Enums"]["gender"];
+          id?: string;
           name: string;
-          sex?: Database["public"]["Enums"]["sex"] | null;
+          profile_picture_url?: string | null;
         };
         Update: {
+          auth_user_id?: string | null;
           birth_date?: string;
           created_at?: string;
-          height?: number | null;
+          gender?: Database["public"]["Enums"]["gender"];
           id?: string;
           name?: string;
-          sex?: Database["public"]["Enums"]["sex"] | null;
+          profile_picture_url?: string | null;
         };
         Relationships: [
           {
-            foreignKeyName: "public_user_info_id_fkey";
-            columns: ["id"];
+            foreignKeyName: "user_info_auth_user_id_fkey";
+            columns: ["auth_user_id"];
             isOneToOne: true;
             referencedRelation: "users";
             referencedColumns: ["id"];
@@ -320,8 +323,8 @@ export type Database = {
       [_ in never]: never;
     };
     Enums: {
+      gender: "MALE" | "FEMALE" | "OTHER";
       reminderType: "DAYS" | "HOURS";
-      sex: "MALE" | "FEMALE";
     };
     CompositeTypes: {
       [_ in never]: never;
