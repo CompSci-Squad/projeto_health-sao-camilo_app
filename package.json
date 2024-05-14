@@ -24,6 +24,7 @@
     "@react-navigation/native": "^6.0.2",
     "@supabase/supabase-js": "^2.41.1",
     "date-fns": "^3.6.0",
+    "dayjs": "^1.11.10",
     "expo": "~50.0.14",
     "expo-font": "~11.10.3",
     "expo-linking": "~6.2.2",
@@ -41,7 +42,8 @@
     "react-native-screens": "~3.29.0",
     "react-native-svg": "14.1.0",
     "react-native-url-polyfill": "^2.0.0",
-    "react-native-web": "~0.19.6"
+    "react-native-web": "~0.19.6",
+    "@react-native-community/datetimepicker": "7.6.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
