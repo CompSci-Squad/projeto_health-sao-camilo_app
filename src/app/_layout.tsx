@@ -5,6 +5,7 @@ import { Stack, SplashScreen } from "expo-router";
 import { useEffect } from "react";
 
 import { config } from "../../gluestack.config";
+import { StatusBar } from "expo-status-bar";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -38,8 +39,8 @@ export default function AppLayout() {
   return (
     <GluestackUIProvider config={config}>
       <Stack>
-        {/* <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="signup" options={{ headerShown: false }} /> */}
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="signup" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="profile" options={{ headerShown: false }} />
       </Stack>

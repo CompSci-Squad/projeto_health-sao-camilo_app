@@ -16,7 +16,7 @@ export default function TabLayout() {
       safeAreaInsets={{ bottom: 50, top: 20 }}
     >
       <Tabs.Screen
-        name="home"
+        name="index"
         options={{
           tabBarIcon: ({ color }) => (
             <FontAwesome size={28} name="home" color={color} />

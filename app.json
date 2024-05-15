@@ -24,11 +24,10 @@
         "backgroundColor": "#ffffff"
       }
     },
-    "androidStatusBar": {
-      "barStyle": "dark-content"
-    },
+   "androidStatusBar": {
+    "barStyle": "dark-content"
+  },
     "androidNavigationBar": {
-      "visible": "sticky-immersive",
       "barStyle": "dark-content",
       "backgroundColor": "#ffffff"
     },
@@ -39,7 +38,8 @@
     },
     "plugins": [
       "expo-router",
-      "expo-font"
+      "expo-font",
+      "expo-navigation-bar"
     ],
     "experiments": {
       "typedRoutes": true
