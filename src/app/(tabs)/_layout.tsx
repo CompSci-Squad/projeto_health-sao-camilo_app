@@ -13,7 +13,7 @@ export default function TabLayout() {
         tabBarActiveTintColor: "#619776",
         header: () => <Header />,
       }}
-      safeAreaInsets={{ bottom: 50, top: 20 }}
+      safeAreaInsets={{ bottom: 50, top: 100 }}
     >
       <Tabs.Screen
         name="index"

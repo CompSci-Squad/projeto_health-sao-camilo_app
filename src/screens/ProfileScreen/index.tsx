@@ -25,6 +25,7 @@ import { Controller, useForm, SubmitErrorHandler } from "react-hook-form";
 import CustomToast from "../../components/CustomToast";
 import ProfileImage from "../../components/ProfileImage";
 import ReturnButton from "../../components/ReturnButton";
+import ScreenContainer from "../../components/ScreenContainer";
 import { ProfileFormData } from "../../types/profileForm.type";
 import { updateProfile } from "../../utils/functions/updateProfile";
 import { useUserStore } from "../../utils/stores/userStore";
@@ -90,7 +91,7 @@ const ProfileScreen = () => {
     );
 
   return (
-    <>
+    <ScreenContainer>
       <ReturnButton back={router.back} />
       <Center
         flex={1}
@@ -140,7 +141,7 @@ const ProfileScreen = () => {
           <ButtonText>Atualizar</ButtonText>
         </Button>
       </Center>
-    </>
+    </ScreenContainer>
   );
 };
 

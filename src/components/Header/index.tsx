@@ -11,7 +11,7 @@ const Header = () => {
 
   const imageUri = supabase.storage
     .from("assets")
-    .getPublicUrl("logoAppSao-Camilo.jpg").data.publicUrl;
+    .getPublicUrl("logoAppSao-Camilo.png").data.publicUrl;
 
   return (
     <HStack
@@ -19,7 +19,8 @@ const Header = () => {
       justifyContent="space-between"
       alignItems="center"
       paddingHorizontal="$4"
-      paddingVertical="$4"
+      paddingBottom="$4"
+      paddingTop="$8"
       backgroundColor="white"
     >
       <Image

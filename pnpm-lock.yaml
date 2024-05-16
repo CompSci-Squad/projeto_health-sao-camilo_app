@@ -29,15 +29,27 @@ dependencies:
   '@supabase/supabase-js':
     specifier: ^2.41.1
     version: 2.41.1
+  base64-arraybuffer:
+    specifier: ^1.0.2
+    version: 1.0.2
   dayjs:
     specifier: ^1.11.11
     version: 1.11.11
   expo:
     specifier: ~51.0.6
     version: 51.0.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3)
+  expo-camera:
+    specifier: ~15.0.8
+    version: 15.0.8(expo@51.0.6)
+  expo-document-picker:
+    specifier: ~12.0.1
+    version: 12.0.1(expo@51.0.6)
   expo-font:
     specifier: ~12.0.4
     version: 12.0.4(expo@51.0.6)
+  expo-image-picker:
+    specifier: ~15.0.5
+    version: 15.0.5(expo@51.0.6)
   expo-linking:
     specifier: ~6.3.1
     version: 6.3.1(expo@51.0.6)
@@ -6197,6 +6209,11 @@ packages:
   /balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
 
+  /base64-arraybuffer@1.0.2:
+    resolution: {integrity: sha512-I3yl4r9QB5ZRY3XuJVEPfc2XhZO6YweFPI+UovAzn+8/hb3oJ6lnysaFcjVpkCPfVWFUDvoZ8kmVDP7WyRtYtQ==}
+    engines: {node: '>= 0.6.0'}
+    dev: false
+
   /base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
 
@@ -8044,6 +8061,15 @@ packages:
       - supports-color
     dev: false
 
+  /expo-camera@15.0.8(expo@51.0.6):
+    resolution: {integrity: sha512-pWiSBQRKjnenEOwMqbkfY41Jm0Xkt63ODPqQydKOgmFELrsuQjGbRla6QaZ8Eo6hVeuClfyVnUu3sKfnN+CmNA==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 51.0.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3)
+      invariant: 2.2.4
+    dev: false
+
   /expo-constants@16.0.1(expo@51.0.6):
     resolution: {integrity: sha512-s6aTHtglp926EsugWtxN7KnpSsE9FCEjb7CgEjQQ78Gpu4btj4wB+IXot2tlqNwqv+x7xFe5veoPGfJDGF/kVg==}
     peerDependencies:
@@ -8053,6 +8079,14 @@ packages:
       expo: 51.0.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3)
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /expo-document-picker@12.0.1(expo@51.0.6):
+    resolution: {integrity: sha512-xkIzcQ8uHQ8QrSOM0jlemObQtxD0uE9QbLXo1mpGK5o+uh6Xp0JtYuB/6TqfoRX/q5pe2eyLYaSsCL3yWbZofw==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 51.0.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3)
     dev: false
 
   /expo-file-system@17.0.1(expo@51.0.6):
@@ -8079,6 +8113,23 @@ packages:
     dependencies:
       expo: 51.0.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3)
       fontfaceobserver: 2.3.0
+    dev: false
+
+  /expo-image-loader@4.7.0(expo@51.0.6):
+    resolution: {integrity: sha512-cx+MxxsAMGl9AiWnQUzrkJMJH4eNOGlu7XkLGnAXSJrRoIiciGaKqzeaD326IyCTV+Z1fXvIliSgNW+DscvD8g==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 51.0.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3)
+    dev: false
+
+  /expo-image-picker@15.0.5(expo@51.0.6):
+    resolution: {integrity: sha512-Qqp16udsadx/YpNcNaWzfbmO0tbMxyX9bS1aFiDVC+Zffh8LY8S4HJJcnWqSC2TeuAl+9SxUwTloJagvPeMBBw==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 51.0.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3)
+      expo-image-loader: 4.7.0(expo@51.0.6)
     dev: false
 
   /expo-keep-awake@13.0.1(expo@51.0.6):

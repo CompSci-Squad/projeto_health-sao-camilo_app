@@ -13,11 +13,12 @@ const ReturnButton: React.FC<ReturnButtonProps> = ({ back }) => {
       borderWidth={2}
       borderColor="$hospitalGreen"
       width="$12"
-      mt="$4"
-      ml="$2"
-      bgColor="transparent"
+      mt="$8"
+      ml="$3"
+      bgColor="$hospitalGreen"
+      size="md"
     >
-      <Icon as={ArrowLeftCircle} />
+      <Icon as={ArrowLeftCircle} size="lg" color="$white" />
     </Button>
   );
 };

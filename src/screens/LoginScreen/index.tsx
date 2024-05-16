@@ -23,16 +23,16 @@ import {
 } from "@gluestack-ui/themed";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import { Controller, SubmitErrorHandler, useForm } from "react-hook-form";
 
 import CustomToast from "../../components/CustomToast";
+import ScreenContainer from "../../components/ScreenContainer";
 import { LoginFormData } from "../../types/loginForm.type";
 import { useUserStore } from "../../utils/stores/userStore";
 import { supabase } from "../../utils/supabase/supbase";
 import { LoginSchema } from "../../utils/validations/loginForm.validation";
-import { StatusBar } from "expo-status-bar";
-import StatusBarConfig from "../../components/StatusBarConfig";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -139,7 +139,8 @@ const LoginPage = () => {
     );
 
   return (
-    <StatusBarConfig>
+    <ScreenContainer>
+      <StatusBar style="dark" />
       <Center flex={1} justifyContent="center" alignItems="center">
         <Image
           source={{
@@ -230,7 +231,7 @@ const LoginPage = () => {
           </Button>
         </Box>
       </Center>
-    </StatusBarConfig>
+    </ScreenContainer>
   );
 };
 

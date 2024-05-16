@@ -4,7 +4,7 @@ type StatusBarConfigProps = {
   children: React.ReactNode;
 };
 
-const StatusBarConfig: React.FC<StatusBarConfigProps> = ({ children }) => {
+const ScreenContainer: React.FC<StatusBarConfigProps> = ({ children }) => {
   return (
     <>
       <StatusBar style="dark" />
@@ -13,4 +13,4 @@ const StatusBarConfig: React.FC<StatusBarConfigProps> = ({ children }) => {
   );
 };
 
-export default StatusBarConfig;
+export default ScreenContainer;
