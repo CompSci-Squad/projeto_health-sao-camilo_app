@@ -8,7 +8,7 @@
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/cachorro_arabe.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -24,6 +24,13 @@
         "backgroundColor": "#ffffff"
       }
     },
+   "androidStatusBar": {
+    "barStyle": "dark-content"
+  },
+    "androidNavigationBar": {
+      "barStyle": "dark-content",
+      "backgroundColor": "#ffffff"
+    },
     "web": {
       "bundler": "metro",
       "output": "static",
@@ -31,7 +38,11 @@
     },
     "plugins": [
       "expo-router",
-      "expo-font"
+      "expo-font",
+      "expo-navigation-bar",
+      "expo-camera",
+      "expo-document-picker",
+      "expo-image-picker"
     ],
     "experiments": {
       "typedRoutes": true

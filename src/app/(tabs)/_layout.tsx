@@ -2,6 +2,7 @@ import { AntDesign, Entypo } from "@expo/vector-icons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Tabs } from "expo-router";
 import React from "react";
+import { StyleSheet } from "react-native";
 
 import Header from "../../components/Header";
 
@@ -12,9 +13,10 @@ export default function TabLayout() {
         tabBarActiveTintColor: "#619776",
         header: () => <Header />,
       }}
+      safeAreaInsets={{ bottom: 50, top: 100 }}
     >
       <Tabs.Screen
-        name="home"
+        name="index"
         options={{
           tabBarIcon: ({ color }) => (
             <FontAwesome size={28} name="home" color={color} />

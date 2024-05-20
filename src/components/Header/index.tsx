@@ -1,19 +1,27 @@
-import { Button, HStack, Image, Icon, Text } from "@gluestack-ui/themed";
+import {
+  Button,
+  HStack,
+  Image,
+  Icon,
+  Text,
+  Avatar,
+  AvatarImage,
+} from "@gluestack-ui/themed";
 import { usePathname, useRouter } from "expo-router";
 import { CircleUserRound } from "lucide-react-native";
 
 import { changeRouteName } from "../../utils/functions/changeRouteName";
+import { useUserStore } from "../../utils/stores/userStore";
 import { supabase } from "../../utils/supabase/supbase";
 
 const Header = () => {
   const router = useRouter();
   const pathName = usePathname();
+  const { user } = useUserStore();
 
   const imageUri = supabase.storage
     .from("assets")
-    .getPublicUrl("logoAppSao-Camilo.jpg").data.publicUrl;
-
-  const firstPathName = pathName.split("/")[1];
+    .getPublicUrl("logoAppSao-Camilo.png").data.publicUrl;
 
   return (
     <HStack
@@ -21,8 +29,8 @@ const Header = () => {
       justifyContent="space-between"
       alignItems="center"
       paddingHorizontal="$4"
+      paddingBottom="$4"
       paddingTop="$8"
-      paddingBottom="$3"
       backgroundColor="white"
     >
       <Image
@@ -35,14 +43,31 @@ const Header = () => {
       />
 
       <Text fontWeight="$bold">
-        {changeRouteName(firstPathName.toUpperCase())}
+        {changeRouteName(pathName.toUpperCase().split("/")[1])}
       </Text>
 
       <Button
         backgroundColor="$white"
         onPress={() => router.navigate("/profile")}
       >
-        <Icon as={CircleUserRound} size="xl" color="black" />
+        {user?.profile_picture_url ? (
+          <Avatar
+            height={40}
+            width={40}
+            borderColor="$hospitalGreen"
+            borderWidth={2}
+          >
+            <AvatarImage
+              source={{
+                uri: user.profile_picture_url,
+                cache: "reload",
+              }}
+              alt="profile image"
+            />
+          </Avatar>
+        ) : (
+          <Icon as={CircleUserRound} size="xl" color="black" />
+        )}
       </Button>
     </HStack>
   );
