@@ -12,21 +12,14 @@ import * as ImagePicker from "expo-image-picker";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 
-import { User } from "../../types/user.type";
 import { uploadProfileImage } from "../../utils/functions/uploadProfileImage";
 import { useUserStore } from "../../utils/stores/userStore";
+import { supabase } from "../../utils/supabase/supbase";
 import CustomToast from "../CustomToast";
 
-type ImagePickerProps = {
-  content: any;
-  setContent: React.Dispatch<any>;
-};
-
-const ImagePickerExample: React.FC<ImagePickerProps> = ({
-  content,
-  setContent,
-}) => {
+const ImagePickerExample = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [content, setContent] = useState<any>();
   const toast = useToast();
   const router = useRouter();
   const { user, setUser } = useUserStore();
@@ -80,25 +73,28 @@ const ImagePickerExample: React.FC<ImagePickerProps> = ({
         ),
       });
       setIsLoading(false);
+    } else {
+      const publicImageUrl = supabase.storage
+        .from("user_profile")
+        .getPublicUrl(response! as string).data.publicUrl;
+      setUser({ ...user!, profile_picture_url: publicImageUrl! as string });
+
+      toast.show({
+        duration: 5000,
+        placement: "top right",
+        render: () => (
+          <CustomToast
+            title="Sucesso"
+            action="success"
+            message="Upload da imagem realizada com sucesso"
+          />
+        ),
+        onCloseComplete: () => {
+          router.navigate("/profile");
+          setIsLoading(false);
+        },
+      });
     }
-
-    setUser({ ...user!, profile_picture_url: response as string });
-
-    toast.show({
-      duration: 5000,
-      placement: "top right",
-      render: () => (
-        <CustomToast
-          title="Sucesso"
-          action="success"
-          message="Upload da imagem realizada com sucesso"
-        />
-      ),
-      onCloseComplete: () => {
-        router.navigate("/profile");
-        setIsLoading(false);
-      },
-    });
   };
 
   if (isLoading) return <Spinner />;

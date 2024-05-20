@@ -17,11 +17,11 @@ import {
 import { useRouter } from "expo-router";
 import { SwitchCamera, Camera as CameraIcon } from "lucide-react-native";
 import React, { useState, useRef } from "react";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet } from "react-native";
 
-import { User } from "../../types/user.type";
 import { uploadProfileImage } from "../../utils/functions/uploadProfileImage";
 import { useUserStore } from "../../utils/stores/userStore";
+import { supabase } from "../../utils/supabase/supbase";
 import CustomToast from "../CustomToast";
 
 type CameraProps = {
@@ -101,7 +101,10 @@ const Camera: React.FC<CameraProps> = ({ content, setContent }) => {
       });
       setIsLoading(false);
     } else {
-      setUser({ ...user!, profile_picture_url: response as string });
+      const publicImageUrl = supabase.storage
+        .from("user_profile")
+        .getPublicUrl(response! as string).data.publicUrl;
+      setUser({ ...user!, profile_picture_url: publicImageUrl });
 
       console.log("user: ", user);
 

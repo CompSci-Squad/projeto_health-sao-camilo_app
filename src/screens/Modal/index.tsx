@@ -66,7 +66,7 @@ const Modal = () => {
       <Center flex={1} justifyContent="center" alignContent="center">
         {choice === "document" ? (
           originalScreen === "profile" ? (
-            <ImagePickerExample content={content} setContent={setContent} />
+            <ImagePickerExample />
           ) : (
             <DocumentPicker content={content} setContent={setContent} />
           )

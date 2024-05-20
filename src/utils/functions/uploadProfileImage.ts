@@ -13,9 +13,15 @@ export const uploadProfileImage = async (base64File: string, user: User) => {
           contentType: "image/jpeg",
         });
 
+      console.log(data?.path);
+
+      const publicImageUrl = supabase.storage
+        .from("user_profile")
+        .getPublicUrl(data?.path!).data.publicUrl;
+
       const { error: userError } = await supabase
         .from("user_info")
-        .update({ profile_picture_url: data?.path })
+        .update({ profile_picture_url: publicImageUrl })
         .eq("id", user.id);
 
       if (error) {
@@ -29,7 +35,7 @@ export const uploadProfileImage = async (base64File: string, user: User) => {
         alert("Image upload failed. Please try again.");
         return userError;
       }
-      return data.path;
+      return publicImageUrl;
     }
 
     const { data, error } = await supabase.storage

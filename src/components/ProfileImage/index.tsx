@@ -7,10 +7,6 @@ import {
   Icon,
 } from "@gluestack-ui/themed";
 import { useRouter } from "expo-router";
-import { useEffect } from "react";
-
-import { useUserStore } from "../../utils/stores/userStore";
-import { supabase } from "../../utils/supabase/supbase";
 
 type ProfileImageProps = {
   profile_url: string | undefined | null;
@@ -18,19 +14,10 @@ type ProfileImageProps = {
 
 const ProfileImage: React.FC<ProfileImageProps> = ({ profile_url }) => {
   const router = useRouter();
-  const { user } = useUserStore();
-
-  let imageUri;
-
-  useEffect(() => {
-    imageUri = supabase.storage
-      .from("user_profile")
-      .getPublicUrl(user?.profile_picture_url).data.publicUrl;
-  }, []);
 
   return (
     <Box display="flex" alignItems="center" justifyContent="center" mb="$32">
-      {imageUri ? (
+      {profile_url ? (
         <Button
           bg="transparent"
           onPress={() =>
@@ -48,7 +35,8 @@ const ProfileImage: React.FC<ProfileImageProps> = ({ profile_url }) => {
           >
             <AvatarImage
               source={{
-                uri: imageUri,
+                uri: profile_url,
+                cache: "reload",
               }}
               alt="profile image"
             />
@@ -65,7 +53,9 @@ const ProfileImage: React.FC<ProfileImageProps> = ({ profile_url }) => {
           onPress={() =>
             router.push({
               pathname: "/modal",
-              params: { originalScreen: "profile" },
+              params: {
+                originalScreen: "profile",
+              },
             })
           }
         >

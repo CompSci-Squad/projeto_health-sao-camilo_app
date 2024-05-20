@@ -16,13 +16,27 @@ import {
   useToast,
   FormControlLabel,
   FormControlLabelText,
+  SelectIcon,
+  SelectTrigger,
+  Select,
+  SelectInput,
+  SelectPortal,
+  SelectBackdrop,
+  SelectContent,
+  SelectDragIndicator,
+  SelectDragIndicatorWrapper,
+  Icon,
+  ChevronDownIcon,
+  SelectItem,
 } from "@gluestack-ui/themed";
 import { zodResolver } from "@hookform/resolvers/zod";
+import dayjs from "dayjs";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Controller, useForm, SubmitErrorHandler } from "react-hook-form";
 
 import CustomToast from "../../components/CustomToast";
+import MaskedInput from "../../components/MaskedInput";
 import ProfileImage from "../../components/ProfileImage";
 import ReturnButton from "../../components/ReturnButton";
 import ScreenContainer from "../../components/ScreenContainer";
@@ -42,7 +56,7 @@ const ProfileScreen = () => {
     defaultValues: {
       name: user?.name,
       gender: user?.gender,
-      birthDate: user?.birth_date,
+      birthDate: dayjs(user?.birth_date).format("DD/MM/YYYY"),
     },
   });
 
@@ -129,6 +143,79 @@ const ProfileScreen = () => {
               </FormControl>
             )}
             name="name"
+            rules={{ required: true }}
+          />
+          <Controller
+            control={control}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <FormControl isInvalid={!!error} mt="$3">
+                <FormControlLabel>
+                  <FormControlLabelText>Genero:</FormControlLabelText>
+                </FormControlLabel>
+                <Select onValueChange={onChange} selectedValue={value}>
+                  <SelectTrigger
+                    variant="rounded"
+                    borderColor="$hospitalGreen"
+                    borderWidth="$2"
+                  >
+                    <SelectInput placeholder="Select option" />
+                    <SelectIcon marginRight="$3">
+                      <Icon as={ChevronDownIcon} />
+                    </SelectIcon>
+                  </SelectTrigger>
+                  <SelectPortal>
+                    <SelectBackdrop />
+                    <SelectContent>
+                      <SelectDragIndicatorWrapper>
+                        <SelectDragIndicator />
+                      </SelectDragIndicatorWrapper>
+                      {["MALE", "FEMALE", "OTHER"].map((genero) => (
+                        <SelectItem
+                          label={genero}
+                          value={genero}
+                          key={genero}
+                        />
+                      ))}
+                    </SelectContent>
+                  </SelectPortal>
+                </Select>
+                <FormControlError>
+                  <FormControlErrorIcon as={AlertCircleIcon} />
+                  <FormControlErrorText>{error?.message}</FormControlErrorText>
+                </FormControlError>
+              </FormControl>
+            )}
+            name="gender"
+            rules={{ required: true }}
+          />
+          <Controller
+            control={control}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <FormControl isInvalid={!!error} mt="$3">
+                <FormControlLabel>
+                  <FormControlLabelText>
+                    Data de aniversário:
+                  </FormControlLabelText>
+                </FormControlLabel>
+                <MaskedInput
+                  type="date"
+                  onChangeText={(text, rawText) => onChange(text)}
+                  keyboardType="numeric"
+                  placeholder="Data de nascimento"
+                  value={value}
+                  options={{
+                    dateFormat: "DD/MM/YYYY",
+                  }}
+                  mask="99/99/9999"
+                />
+
+                <FormControlError>
+                  <FormControlErrorIcon as={AlertCircleIcon} />
+                  <FormControlErrorText>{error?.message}</FormControlErrorText>
+                </FormControlError>
+              </FormControl>
+            )}
+            name="birthDate"
             rules={{ required: true }}
           />
         </Box>

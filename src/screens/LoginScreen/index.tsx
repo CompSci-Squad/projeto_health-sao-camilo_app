@@ -83,7 +83,7 @@ const LoginPage = () => {
           <CustomToast
             title="login efetuado com sucesso"
             message="login foi efetuado com sucesso, em breve você será redirecionado"
-            action="error"
+            action="success"
           />
         ),
         onCloseComplete: () => {
