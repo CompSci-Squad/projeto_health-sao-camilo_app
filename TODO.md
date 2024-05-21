@@ -9,3 +9,7 @@
 - configurar login automatico
 
 - criar função para fazer refetch da foto de perfil
+
+- ver header
+
+- ver android navbar

@@ -1,12 +1,14 @@
-import { Card, Heading, Text } from "@gluestack-ui/themed";
+import { Button, Card, Heading, Text } from "@gluestack-ui/themed";
+import { useRouter } from "expo-router";
 
 type HomeCardProps = {
   info: any;
   text: string;
-  type: "PRESSURE" | "WEIGHT" | "HEIGHT" | "GLUCOSE";
+  type: "PRESSURE" | "WEIGHT" | "HEIGHT" | "GLUCOSE" | "IMC";
 };
 
 const HomeCard: React.FC<HomeCardProps> = ({ info, text, type }) => {
+  const router = useRouter();
   const determineString = () => {
     if (!info) return null;
     switch (type) {
@@ -24,18 +26,26 @@ const HomeCard: React.FC<HomeCardProps> = ({ info, text, type }) => {
   };
 
   return (
-    <Card
+    <Button
+      onPress={() => router.navigate(`/(tabs)/${type}`)}
       width="$64"
-      mt="$6"
-      borderColor="$hospitalGreen"
-      borderWidth={2}
-      borderRadius="$2xl"
+      bgColor="$transparent"
+      height="$32"
+      mt="$4"
     >
-      <Heading mb="$1" size="md">
-        {text}
-      </Heading>
-      <Text size="md">{determineString()}</Text>
-    </Card>
+      <Card
+        width="$64"
+        height="$32"
+        borderColor="$hospitalGreen"
+        borderWidth={2}
+        borderRadius="$2xl"
+      >
+        <Heading mb="$1" size="md">
+          {text}
+        </Heading>
+        <Text size="md">{determineString()}</Text>
+      </Card>
+    </Button>
   );
 };
 
