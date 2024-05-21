@@ -13,3 +13,5 @@
 - ver header
 
 - ver android navbar
+
+- colocar novo splash screen

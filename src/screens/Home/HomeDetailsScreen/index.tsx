@@ -5,6 +5,7 @@ import { useCallback, useState } from "react";
 import { getHomeDetailInformation } from "../../../utils/functions/home/getHomeDetailInformation";
 import { useUserStore } from "../../../utils/stores/userStore";
 import { ScrollView } from "react-native";
+import { PostgrestResponse } from '@supabase/supabase-js'
 
 const HomeDetailsScreen = () => {
   const { homeDetails: type } = useGlobalSearchParams();
@@ -15,7 +16,7 @@ const HomeDetailsScreen = () => {
   const fetchInfo = async () => {
     setIsLoading(true);
     const response = await getHomeDetailInformation(user?.id, type);
-    setResults(response?.status === 200 ? response.data : null);
+    setResults(response.status === 200 ? response.data : null);
     setIsLoading(false);
   };
 
