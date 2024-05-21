@@ -14,37 +14,30 @@ export type Database = {
           address: Json | null;
           created_at: string;
           id: string;
-          reminderType: Database["public"]["Enums"]["reminderType"] | null;
-          reminderValue: number | null;
-          specialtyId: string | null;
+          reminder_type: Database["public"]["Enums"]["reminderType"] | null;
+          reminder_value: number | null;
+          specialty: string | null;
           userId: string | null;
         };
         Insert: {
           address?: Json | null;
           created_at?: string;
           id?: string;
-          reminderType?: Database["public"]["Enums"]["reminderType"] | null;
-          reminderValue?: number | null;
-          specialtyId?: string | null;
+          reminder_type?: Database["public"]["Enums"]["reminderType"] | null;
+          reminder_value?: number | null;
+          specialty?: string | null;
           userId?: string | null;
         };
         Update: {
           address?: Json | null;
           created_at?: string;
           id?: string;
-          reminderType?: Database["public"]["Enums"]["reminderType"] | null;
-          reminderValue?: number | null;
-          specialtyId?: string | null;
+          reminder_type?: Database["public"]["Enums"]["reminderType"] | null;
+          reminder_value?: number | null;
+          specialty?: string | null;
           userId?: string | null;
         };
         Relationships: [
-          {
-            foreignKeyName: "public_appointment_specialtyId_fkey";
-            columns: ["specialtyId"];
-            isOneToOne: false;
-            referencedRelation: "specialty";
-            referencedColumns: ["id"];
-          },
           {
             foreignKeyName: "public_appointment_userId_fkey";
             columns: ["userId"];
@@ -54,83 +47,93 @@ export type Database = {
           },
         ];
       };
-      exams: {
+      exam: {
         Row: {
+          category: string | null;
           created_at: string;
-          examTypeId: string | null;
+          exam_url: string | null;
           id: string;
-          userId: string | null;
+          type: string | null;
+          user_id: string | null;
         };
         Insert: {
+          category?: string | null;
           created_at?: string;
-          examTypeId?: string | null;
+          exam_url?: string | null;
           id?: string;
-          userId?: string | null;
+          type?: string | null;
+          user_id?: string | null;
         };
         Update: {
+          category?: string | null;
           created_at?: string;
-          examTypeId?: string | null;
+          exam_url?: string | null;
           id?: string;
-          userId?: string | null;
+          type?: string | null;
+          user_id?: string | null;
         };
         Relationships: [
           {
-            foreignKeyName: "public_exams_examTypeId_fkey";
-            columns: ["examTypeId"];
-            isOneToOne: false;
-            referencedRelation: "examType";
-            referencedColumns: ["id"];
-          },
-          {
             foreignKeyName: "public_exams_userId_fkey";
-            columns: ["userId"];
+            columns: ["user_id"];
             isOneToOne: false;
             referencedRelation: "user_info";
             referencedColumns: ["id"];
           },
         ];
       };
-      examType: {
-        Row: {
-          created_at: string;
-          id: string;
-          name: string;
-        };
-        Insert: {
-          created_at?: string;
-          id?: string;
-          name: string;
-        };
-        Update: {
-          created_at?: string;
-          id?: string;
-          name?: string;
-        };
-        Relationships: [];
-      };
       glucose: {
         Row: {
           created_at: string;
           id: number;
-          userId: string | null;
+          user_id: string | null;
           value: number | null;
         };
         Insert: {
           created_at?: string;
           id?: number;
-          userId?: string | null;
+          user_id?: string | null;
           value?: number | null;
         };
         Update: {
           created_at?: string;
           id?: number;
-          userId?: string | null;
+          user_id?: string | null;
           value?: number | null;
         };
         Relationships: [
           {
-            foreignKeyName: "public_glucose_userId_fkey";
-            columns: ["userId"];
+            foreignKeyName: "glucose_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "user_info";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      height: {
+        Row: {
+          created_at: string;
+          id: string;
+          user_id: string | null;
+          value: number | null;
+        };
+        Insert: {
+          created_at?: string;
+          id?: string;
+          user_id?: string | null;
+          value?: number | null;
+        };
+        Update: {
+          created_at?: string;
+          id?: string;
+          user_id?: string | null;
+          value?: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "height_user_id_fkey";
+            columns: ["user_id"];
             isOneToOne: false;
             referencedRelation: "user_info";
             referencedColumns: ["id"];
@@ -140,43 +143,78 @@ export type Database = {
       medicine: {
         Row: {
           created_at: string;
-          finalDate: string;
+          dosage: string;
+          final_date: string;
           id: string;
-          intervalInMinutes: number | null;
-          isContinuous: boolean;
-          isFinished: boolean;
-          name: string;
-          userId: string | null;
+          interval_in_minutes: number | null;
+          is_continuous: boolean;
+          is_finished: boolean;
+          medicine_name_id: string;
+          user_id: string | null;
         };
         Insert: {
           created_at?: string;
-          finalDate: string;
+          dosage: string;
+          final_date: string;
           id?: string;
-          intervalInMinutes?: number | null;
-          isContinuous: boolean;
-          isFinished: boolean;
-          name: string;
-          userId?: string | null;
+          interval_in_minutes?: number | null;
+          is_continuous: boolean;
+          is_finished: boolean;
+          medicine_name_id?: string;
+          user_id?: string | null;
         };
         Update: {
           created_at?: string;
-          finalDate?: string;
+          dosage?: string;
+          final_date?: string;
           id?: string;
-          intervalInMinutes?: number | null;
-          isContinuous?: boolean;
-          isFinished?: boolean;
-          name?: string;
-          userId?: string | null;
+          interval_in_minutes?: number | null;
+          is_continuous?: boolean;
+          is_finished?: boolean;
+          medicine_name_id?: string;
+          user_id?: string | null;
         };
         Relationships: [
           {
+            foreignKeyName: "medicine_medicine_name_id_fkey";
+            columns: ["medicine_name_id"];
+            isOneToOne: false;
+            referencedRelation: "medicine_name";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "medicine_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "user_info";
+            referencedColumns: ["id"];
+          },
+          {
             foreignKeyName: "public_medicine_userId_fkey";
-            columns: ["userId"];
+            columns: ["user_id"];
             isOneToOne: false;
             referencedRelation: "user_info";
             referencedColumns: ["id"];
           },
         ];
+      };
+      medicine_name: {
+        Row: {
+          created_at: string;
+          id: string;
+          name: string;
+        };
+        Insert: {
+          created_at?: string;
+          id?: string;
+          name: string;
+        };
+        Update: {
+          created_at?: string;
+          id?: string;
+          name?: string;
+        };
+        Relationships: [];
       };
       pressure: {
         Row: {
@@ -184,79 +222,64 @@ export type Database = {
           denominator: number | null;
           id: number;
           numerator: number | null;
-          userId: string | null;
+          user_id: string | null;
         };
         Insert: {
           created_at?: string;
           denominator?: number | null;
           id?: number;
           numerator?: number | null;
-          userId?: string | null;
+          user_id?: string | null;
         };
         Update: {
           created_at?: string;
           denominator?: number | null;
           id?: number;
           numerator?: number | null;
-          userId?: string | null;
+          user_id?: string | null;
         };
         Relationships: [
           {
-            foreignKeyName: "public_pressure_userId_fkey";
-            columns: ["userId"];
+            foreignKeyName: "pressure_user_id_fkey";
+            columns: ["user_id"];
             isOneToOne: false;
             referencedRelation: "user_info";
             referencedColumns: ["id"];
           },
         ];
       };
-      specialty: {
-        Row: {
-          created_at: string;
-          id: string;
-          name: string | null;
-        };
-        Insert: {
-          created_at?: string;
-          id?: string;
-          name?: string | null;
-        };
-        Update: {
-          created_at?: string;
-          id?: string;
-          name?: string | null;
-        };
-        Relationships: [];
-      };
       user_info: {
         Row: {
+          auth_user_id: string | null;
           birth_date: string;
           created_at: string;
-          height: number | null;
+          gender: Database["public"]["Enums"]["gender"];
           id: string;
           name: string;
-          sex: Database["public"]["Enums"]["sex"] | null;
+          profile_picture_url: string | null;
         };
         Insert: {
+          auth_user_id?: string | null;
           birth_date: string;
           created_at?: string;
-          height?: number | null;
-          id: string;
+          gender: Database["public"]["Enums"]["gender"];
+          id?: string;
           name: string;
-          sex?: Database["public"]["Enums"]["sex"] | null;
+          profile_picture_url?: string | null;
         };
         Update: {
+          auth_user_id?: string | null;
           birth_date?: string;
           created_at?: string;
-          height?: number | null;
+          gender?: Database["public"]["Enums"]["gender"];
           id?: string;
           name?: string;
-          sex?: Database["public"]["Enums"]["sex"] | null;
+          profile_picture_url?: string | null;
         };
         Relationships: [
           {
-            foreignKeyName: "public_user_info_id_fkey";
-            columns: ["id"];
+            foreignKeyName: "user_info_auth_user_id_fkey";
+            columns: ["auth_user_id"];
             isOneToOne: true;
             referencedRelation: "users";
             referencedColumns: ["id"];
@@ -300,8 +323,8 @@ export type Database = {
       [_ in never]: never;
     };
     Enums: {
+      gender: "MALE" | "FEMALE" | "OTHER";
       reminderType: "DAYS" | "HOURS";
-      sex: "MALE" | "FEMALE";
     };
     CompositeTypes: {
       [_ in never]: never;

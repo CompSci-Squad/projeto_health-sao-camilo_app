@@ -136,6 +136,7 @@ const config = createConfig({
       info900: "#441e7d",
 
       hospitalGreen: "#619776",
+      darkHospitalGreen: "#3c5e4a",
     },
     space: {
       ...defaultConfig.tokens.space,

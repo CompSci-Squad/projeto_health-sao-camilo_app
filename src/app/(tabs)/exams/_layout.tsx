@@ -1,10 +1,10 @@
 import { Stack } from "expo-router";
 
-export default function Home() {
+export default function ExamsLayout() {
   return (
     <Stack>
       <Stack.Screen
-        name="homeIndex"
+        name="examsHome"
         options={{ headerShown: false, navigationBarHidden: true }}
       />
     </Stack>
