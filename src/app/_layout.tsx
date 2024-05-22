@@ -2,7 +2,6 @@ import { FontAwesome } from "@expo/vector-icons";
 import { GluestackUIProvider } from "@gluestack-ui/themed";
 import { useFonts } from "expo-font";
 import { Stack, SplashScreen } from "expo-router";
-import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 
 import { config } from "../../gluestack.config";
@@ -44,6 +43,7 @@ export default function AppLayout() {
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="profile" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ headerShown: false }} />
+        <Stack.Screen name="createNewRecord" options={{ headerShown: false }} />
       </Stack>
     </GluestackUIProvider>
   );

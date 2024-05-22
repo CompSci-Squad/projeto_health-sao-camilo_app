@@ -7,6 +7,10 @@ export default function Home() {
         name="homeIndex"
         options={{ headerShown: false, navigationBarHidden: true }}
       />
+      <Stack.Screen
+        name="[homeDetails]"
+        options={{ headerShown: false, navigationBarHidden: true }}
+      />
     </Stack>
   );
 }

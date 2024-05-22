@@ -2,7 +2,6 @@ import { AntDesign, Entypo } from "@expo/vector-icons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Tabs } from "expo-router";
 import React from "react";
-import { StyleSheet } from "react-native";
 
 import Header from "../../components/Header";
 
