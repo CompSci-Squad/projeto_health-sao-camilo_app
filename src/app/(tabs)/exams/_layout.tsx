@@ -7,6 +7,10 @@ export default function ExamsLayout() {
         name="examsHome"
         options={{ headerShown: false, navigationBarHidden: true }}
       />
+      <Stack.Screen
+        name="examsDetail"
+        options={{ headerShown: false, navigationBarHidden: true }}
+      />
     </Stack>
   );
 }
