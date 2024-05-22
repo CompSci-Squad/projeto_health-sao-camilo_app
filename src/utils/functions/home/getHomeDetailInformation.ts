@@ -56,12 +56,23 @@ const calcImc = async (userId: string) => {
 
   if (weights.status !== 200 || heights.status !== 200) return null;
 
-  if (!weights.data || !heights.data) return null;
-
   if (weights.data.length <= heights.data.length) {
-    return weights.data.map((weight, index) => ({
+    const values = weights.data.map((weight, index) => ({
       created_at: weight.created_at,
-      value: weight?.value / (heights[index]?.value / 100) ** 2,
+      value: (weight?.value / (heights.data[index]?.value / 100) ** 2).toFixed(
+        2,
+      ),
     }));
+    return { status: 200, data: values };
+  }
+
+  if (heights.data.length <= weights.data.length) {
+    const values = heights.data.map((height, index) => ({
+      created_at: height.created_at,
+      value: (height?.value / (weights.data[index]?.value / 100) ** 2).toFixed(
+        2,
+      ),
+    }));
+    return { status: 200, data: values };
   }
 };

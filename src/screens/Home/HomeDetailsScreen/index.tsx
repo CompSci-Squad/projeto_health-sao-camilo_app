@@ -1,14 +1,45 @@
-import { Box, FlatList, HStack, Heading, Spinner, Text } from "@gluestack-ui/themed";
-import { useFocusEffect, useGlobalSearchParams } from "expo-router";
+import {
+  Box,
+  FlatList,
+  HStack,
+  Heading,
+  Spinner,
+  Text,
+  ScrollView,
+  Button,
+  Icon,
+} from "@gluestack-ui/themed";
+import { PostgrestResponse } from "@supabase/supabase-js";
+import { useFocusEffect, useGlobalSearchParams, useRouter } from "expo-router";
 import { useCallback, useState } from "react";
 
+import HomeDetailsCard from "../../../components/HomeDetailsCard";
 import { getHomeDetailInformation } from "../../../utils/functions/home/getHomeDetailInformation";
 import { useUserStore } from "../../../utils/stores/userStore";
-import { ScrollView } from "react-native";
-import { PostgrestResponse } from '@supabase/supabase-js'
+import { PlusIcon } from "lucide-react-native";
+import ScreenContainer from "../../../components/ScreenContainer";
+import ReturnButton from "../../../components/ReturnButton";
+
+const determineText = (text: string) => {
+  switch (text) {
+    case "HEIGHT":
+      return "Altura";
+    case "WEIGHT":
+      return "Peso";
+    case "PRESSURE":
+      return "Pressão";
+    case "GLUCOSE":
+      return "Glicose";
+    case "IMC":
+      return "IMC";
+    default:
+      break;
+  }
+};
 
 const HomeDetailsScreen = () => {
   const { homeDetails: type } = useGlobalSearchParams();
+  const router = useRouter();
   const { user } = useUserStore();
   const [isLoading, setIsLoading] = useState(false);
   const [results, setResults] = useState<any>();
@@ -36,55 +67,41 @@ const HomeDetailsScreen = () => {
   console.log(results);
 
   return (
-    <ScrollView>
-      <Box py="$10">
-        <Heading size="xl" p="$4" pb="$3">
-          Histórico de {}
+    <ScreenContainer>
+      <ReturnButton back={router.back} />
+      <Box pb="$5" pt="$2" flex={1} alignItems="center" justifyContent="center">
+        <Heading size="xl" p="$4" pb="$2">
+          Histórico de {determineText(type as string)}
         </Heading>
         <FlatList
           data={results}
           renderItem={({ item }) => (
-            <Box
-              borderBottomWidth="$1"
-              borderColor="$trueGray800"
-              $dark-borderColor="$trueGray100"
-              $base-pl={0}
-              $base-pr={0}
-              $sm-pl="$4"
-              $sm-pr="$5"
-              py="$2"
-            >
-              <HStack space="md" justifyContent="space-between">
-                <Avatar size="md">
-                  <AvatarImage source={{ uri: item.avatarUrl }} />
-                </Avatar>
-                <VStack>
-                  <Text
-                    color="$coolGray800"
-                    fontWeight="$bold"
-                    $dark-color="$warmGray100"
-                  >
-                    {item.fullName}
-                  </Text>
-                  <Text color="$coolGray600" $dark-color="$warmGray200">
-                    {item.recentText}
-                  </Text>
-                </VStack>
-                <Text
-                  fontSize="$xs"
-                  color="$coolGray800"
-                  alignSelf="flex-start"
-                  $dark-color="$warmGray100"
-                >
-                  {item.timeStamp}
-                </Text>
-              </HStack>
+            <Box $base-pl={0} $base-pr={0} $sm-pl="$4" $sm-pr="$5" py="$2">
+              <HomeDetailsCard type={type as any} info={item} />
             </Box>
           )}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.created_at.toString()}
         />
+
+        {type !== "IMC" ? (
+          <Button
+            bgColor="$hospitalGreen"
+            borderRadius="$full"
+            size="lg"
+            onPress={() =>
+              router.push({
+                pathname: "/createNewRecord",
+                params: { type },
+              })
+            }
+          >
+            <Icon as={PlusIcon} color="$white" size="md" />
+          </Button>
+        ) : (
+          <></>
+        )}
       </Box>
-    </ScrollView>
+    </ScreenContainer>
   );
 };
 
