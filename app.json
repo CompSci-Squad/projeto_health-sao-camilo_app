@@ -42,7 +42,8 @@
       "expo-navigation-bar",
       "expo-camera",
       "expo-document-picker",
-      "expo-image-picker"
+      "expo-image-picker",
+      "expo-media-library"
     ],
     "experiments": {
       "typedRoutes": true

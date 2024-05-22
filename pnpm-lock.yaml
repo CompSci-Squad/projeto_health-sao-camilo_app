@@ -44,15 +44,24 @@ dependencies:
   expo-document-picker:
     specifier: ~12.0.1
     version: 12.0.1(expo@51.0.6)
+  expo-file-system:
+    specifier: ~17.0.1
+    version: 17.0.1(expo@51.0.6)
   expo-font:
     specifier: ~12.0.4
     version: 12.0.4(expo@51.0.6)
   expo-image-picker:
     specifier: ~15.0.5
     version: 15.0.5(expo@51.0.6)
+  expo-intent-launcher:
+    specifier: ~11.0.1
+    version: 11.0.1(expo@51.0.6)
   expo-linking:
     specifier: ~6.3.1
     version: 6.3.1(expo@51.0.6)
+  expo-media-library:
+    specifier: ~16.0.3
+    version: 16.0.3(expo@51.0.6)
   expo-navigation-bar:
     specifier: ~3.0.4
     version: 3.0.4(expo@51.0.6)
@@ -8132,6 +8141,14 @@ packages:
       expo-image-loader: 4.7.0(expo@51.0.6)
     dev: false
 
+  /expo-intent-launcher@11.0.1(expo@51.0.6):
+    resolution: {integrity: sha512-nUmTTa/HG4jUyRc5YHngdpP5bMyGSRZPi2RX9kpILd3vbMWQeVnwzqAfC+uI34W8uKhEk+9b9Dytzmm7bBND1Q==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 51.0.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3)
+    dev: false
+
   /expo-keep-awake@13.0.1(expo@51.0.6):
     resolution: {integrity: sha512-Kqv8Bf1f5Jp7YMUgTTyKR9GatgHJuAcC8vVWDEkgVhB3O7L3pgBy5MMSMUhkTmRRV6L8TZe/rDmjiBoVS/soFA==}
     peerDependencies:
@@ -8148,6 +8165,14 @@ packages:
     transitivePeerDependencies:
       - expo
       - supports-color
+    dev: false
+
+  /expo-media-library@16.0.3(expo@51.0.6):
+    resolution: {integrity: sha512-E++h+ZyVOXhGOKddeg/wjoEFH+JAGazcAsMpjAOT+/F69nrIEl27Fymi9XVAzooazp38dKrDBNeOJuWoXUdUAw==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 51.0.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3)
     dev: false
 
   /expo-modules-autolinking@1.11.1:
