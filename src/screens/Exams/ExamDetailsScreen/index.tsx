@@ -1,9 +1,10 @@
-import { HStack, Spinner, Text } from "@gluestack-ui/themed";
+import { Box, HStack, Heading, Spinner, Text } from "@gluestack-ui/themed";
 import { useFocusEffect, useLocalSearchParams } from "expo-router";
 import { useCallback, useState } from "react";
 
 import ScreenContainer from "../../../components/ScreenContainer";
 import { getExam } from "../../../utils/functions/exams/getExam";
+import dayjs from "dayjs";
 
 const ExamDetailsScreen = () => {
   const { examId } = useLocalSearchParams();
@@ -39,7 +40,14 @@ const ExamDetailsScreen = () => {
     );
 
   return (
-    <ScreenContainer>{data && data.exam_url ? <></> : <></>}</ScreenContainer>
+    <ScreenContainer>{data && data.exam_url ? (
+      <Box flex={1} alignItems="center" justifyContent="center">
+        <Heading>Nome do arquivo: {data.exam_file_name}</Heading>
+        <Heading>Data: {dayjs(data.created_at).format('DD/MM/YYYY')}</Heading>
+        <Heading>Categoria: {data.category}</Heading>
+        
+      </Box>
+    ) : <></>}</ScreenContainer>
   );
 };
 
