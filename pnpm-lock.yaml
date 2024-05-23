@@ -23,6 +23,9 @@ dependencies:
   '@react-native-async-storage/async-storage':
     specifier: 1.23.1
     version: 1.23.1(react-native@0.74.1)
+  '@react-native-community/datetimepicker':
+    specifier: 7.6.1
+    version: 7.6.1
   '@react-navigation/native':
     specifier: ^6.0.2
     version: 6.1.17(react-native@0.74.1)(react@18.2.0)
@@ -4302,6 +4305,12 @@ packages:
       - encoding
       - supports-color
       - utf-8-validate
+    dev: false
+
+  /@react-native-community/datetimepicker@7.6.1:
+    resolution: {integrity: sha512-g66Q2Kd9Uw3eRL7kkrTsGhi+eXxNoPDRFYH6z78sZQuYjPkUQgJDDMUYgBmaBsQx/fKMtemPrCj1ulGmyi0OSw==}
+    dependencies:
+      invariant: 2.2.4
     dev: false
 
   /@react-native/assets-registry@0.74.83:

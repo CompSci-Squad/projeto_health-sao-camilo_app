@@ -1,4 +1,4 @@
-import MedicationsHomeScreen from "@/screens/MedicationsHome";
+import MedicationsHomeScreen from "@/screens/Medications";
 
 export default function MedicationsHome() {
   return <MedicationsHomeScreen />;
