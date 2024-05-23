@@ -8,7 +8,7 @@ import {
 } from "@gluestack-ui/themed";
 import dayjs from "dayjs";
 import { useRouter } from "expo-router";
-import { MoveRightIcon } from "lucide-react-native";
+import { ArrowRightCircle } from "lucide-react-native";
 
 type ExamCardProps = {
   id: string;
@@ -27,7 +27,7 @@ const ExamCard: React.FC<ExamCardProps> = ({
   return (
     <Card
       mt="$5"
-      width="$64"
+      width="$72"
       height="$32"
       borderColor="$hospitalGreen"
       borderWidth={2}
@@ -47,12 +47,10 @@ const ExamCard: React.FC<ExamCardProps> = ({
             })
           }
           ml="$10"
-          bgColor="transparent"
+          bgColor="$hospitalGreen"
           borderRadius="$full"
-          borderWidth={2}
-          borderColor="$hospitalGreen"
         >
-          <Icon as={MoveRightIcon} />
+          <Icon as={ArrowRightCircle} color="$white" />
         </Button>
       </HStack>
     </Card>
