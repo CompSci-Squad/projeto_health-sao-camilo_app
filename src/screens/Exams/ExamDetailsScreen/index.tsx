@@ -1,10 +1,8 @@
 import {
-  Box,
   Button,
   ButtonText,
   HStack,
   Heading,
-  Image,
   Spinner,
   Text,
   VStack,
@@ -32,7 +30,6 @@ const ExamDetailsScreen = () => {
     id: string;
     user_id: string | null;
   } | null>();
-  const [exam, setExam] = useState<{ uri: string; contentType: string }>();
 
   const downloadFile = async () => {
     setIsLoading(true);
@@ -57,6 +54,21 @@ const ExamDetailsScreen = () => {
       console.log(e);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const deleteExam = async () => {
+    setIsLoading(true);
+    const { status, error } = await supabase
+      .from("exam")
+      .delete()
+      .eq("id", examId!);
+    if (error) {
+      setIsLoading(false);
+      console.log(error);
+    } else {
+      setIsLoading(false);
+      router.back();
     }
   };
 
@@ -125,6 +137,16 @@ const ExamDetailsScreen = () => {
             bgColor="$hospitalGreen"
           >
             <ButtonText>Abrir exame</ButtonText>
+          </Button>
+          <Button
+            onPress={() => deleteExam()}
+            borderColor="$hospitalGreen"
+            borderWidth={2}
+            borderRadius="$xl"
+            px="$5"
+            bgColor="$red500"
+          >
+            <ButtonText>Excluir exame</ButtonText>
           </Button>
         </VStack>
       ) : (

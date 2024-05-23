@@ -1,14 +1,24 @@
-import { FlatList, HStack, Spinner, Text, Box } from "@gluestack-ui/themed";
-import { useFocusEffect } from "expo-router";
+import {
+  FlatList,
+  HStack,
+  Spinner,
+  Text,
+  Box,
+  Button,
+  Icon,
+} from "@gluestack-ui/themed";
+import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useState } from "react";
 
 import ExamCard from "../../../components/ExamCard";
 import ScreenContainer from "../../../components/ScreenContainer";
 import { getExams } from "../../../utils/functions/exams/getExams";
 import { useUserStore } from "../../../utils/stores/userStore";
+import { PlusIcon } from "lucide-react-native";
 
 const ExamHomeScreen = () => {
   const { user } = useUserStore();
+  const router = useRouter();
   const [data, setData] = useState<any>();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -49,6 +59,16 @@ const ExamHomeScreen = () => {
           )}
           keyExtractor={(item: any) => item.created_at.toString()}
         />
+        <Box
+          display="flex"
+          flexDirection="column-reverse"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Button onPress={() => router.navigate("/(tabs)/exams/createExam")}>
+            <Icon as={PlusIcon} />
+          </Button>
+        </Box>
       </Box>
     </ScreenContainer>
   );
