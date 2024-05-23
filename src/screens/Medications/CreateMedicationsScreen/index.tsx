@@ -1,6 +1,6 @@
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { useRouter } from "expo-router";
-import React, { useState } from "react";
+import { useFocusEffect, useRouter } from "expo-router";
+import React, { useCallback, useState } from "react";
 import {
   View,
   Text,
@@ -21,6 +21,8 @@ const AddMedicationScreen = () => {
   const [medicineNameId, setMedicineNameId] = useState("");
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
+  const [medicationNames, setMedicationNames] = useState<any>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const onDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || finalDate;
@@ -35,23 +37,43 @@ const AddMedicationScreen = () => {
     setFinalDate(currentTime);
   };
 
-  const handleAddMedication = async () => {
-    const { data, error } = await supabase.from("medicine").insert([
-      {
-        dosage,
-        final_date: finalDate.toISOString(),
-        is_continuous: isContinuous,
-        medicine_name_id: medicineNameId,
-      },
-    ]);
+  // const handleAddMedication = async () => {
+  //   const { data, error } = await supabase.from("medicine").insert([
+  //     {
+  //       dosage,
+  //       final_date: finalDate.toISOString(),
+  //       is_continuous: isContinuous,
+  //       medicine_name_id: medicineNameId,
+  //     },
+  //   ]);
 
-    if (error) {
-      Alert.alert("Erro", error.message);
+  //   if (error) {
+  //     Alert.alert("Erro", error.message);
+  //   } else {
+  //     Alert.alert("Sucesso", "Medicamento adicionado com sucesso!");
+  //     router.push("/"); // Navega de volta para a tela inicial
+  //   }
+  // };
+
+  const fetchAllMedicationsName = async () => {
+    setIsLoading(true);
+    const { status, data } = await supabase
+      .from("medicine_name")
+      .select("name");
+
+    if (status !== 200) {
+      Alert.alert("Erro", "Não foi possível obter os nomes dos medicamentos");
     } else {
-      Alert.alert("Sucesso", "Medicamento adicionado com sucesso!");
-      router.push("/"); // Navega de volta para a tela inicial
+      setMedicationNames(data);
     }
+    setIsLoading(false);
   };
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchAllMedicationsName();
+    }, []),
+  );
 
   return (
     <View style={styles.container}>
@@ -63,7 +85,7 @@ const AddMedicationScreen = () => {
       />
       <TextInput
         style={styles.input}
-        placeholder="ID do Nome do Medicamento"
+        placeholder="ID do Nome do Medicamento" // criar um select para essa area
         value={medicineNameId}
         onChangeText={setMedicineNameId}
       />

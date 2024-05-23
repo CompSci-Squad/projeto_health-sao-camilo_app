@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
-import { useRouter } from "expo-router";
-import React, { useState, useEffect } from "react";
+import { useFocusEffect, useRouter } from "expo-router";
+import React, { useState, useEffect, useCallback } from "react";
 import { View, Button, Alert, FlatList, TouchableOpacity } from "react-native";
 
 import { supabase } from "../../utils/supabase/supbase";
@@ -9,21 +9,23 @@ import MedicationsCard from "@/components/MedicationsCard";
 
 const MedicationsHomeScreen = () => {
   const router = useRouter();
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<any[]>([]);
 
-  useEffect(() => {
-    const fetchMedications = async () => {
-      const { data, error } = await supabase.from("medicine").select("*");
+  const fetchMedications = async () => {
+    const { data, error } = await supabase.from("medicine").select("*");
 
-      if (error) {
-        Alert.alert("Erro", error.message);
-      } else {
-        setData(data);
-      }
-    };
+    if (error) {
+      Alert.alert("Erro", error.message);
+    } else {
+      setData(data);
+    }
+  };
 
-    fetchMedications();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      fetchMedications();
+    }, []),
+  );
 
   return (
     <View style={{ marginTop: 20 }}>
@@ -41,7 +43,7 @@ const MedicationsHomeScreen = () => {
               }}
             >
               <MedicationsCard
-                name={`Nome do Medicamento: ${item.medicine_name_id}`}
+                nameId={`Nome do Medicamento: ${item.medicine_name_id}`}
                 time={`Intervalo: ${item.interval_in_minutes ? `${item.interval_in_minutes} minutos` : "N/A"}`}
                 endDate={`Fim: ${dayjs(item.final_date).format("DD/MM/YYYY HH:mm")}`}
                 dosage={`Dosagem: ${item.dosage}`}
