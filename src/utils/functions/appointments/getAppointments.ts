@@ -11,6 +11,8 @@ export const getAppointments = async (userId: string) => {
       .gte("date", today)
       .order("created_at", { ascending: false });
 
+      console.log(data)
+
     if (status !== 200 || error) {
       return error;
     } else {
