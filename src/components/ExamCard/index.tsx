@@ -36,7 +36,11 @@ const ExamCard: React.FC<ExamCardProps> = ({
       <HStack flex={1} justifyContent="center" alignItems="center">
         <VStack>
           <Heading>{dayjs(date).format("DD/MM/YYYY")}</Heading>
-          <Heading size="md">{examFileName}</Heading>
+          <Heading size="md">
+            {examFileName.length > 15
+              ? `${examFileName.substring(0, 15)}...`
+              : examFileName}
+          </Heading>
           <Heading size="sm">Categoria: {category}</Heading>
         </VStack>
         <Button

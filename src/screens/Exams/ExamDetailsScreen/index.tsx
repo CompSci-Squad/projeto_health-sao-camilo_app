@@ -140,7 +140,7 @@ const ExamDetailsScreen = () => {
           </Button>
           <Button
             onPress={() => deleteExam()}
-            borderColor="$hospitalGreen"
+            borderColor="transparent"
             borderWidth={2}
             borderRadius="$xl"
             px="$5"

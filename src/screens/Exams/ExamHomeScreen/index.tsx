@@ -65,8 +65,12 @@ const ExamHomeScreen = () => {
           alignItems="center"
           justifyContent="center"
         >
-          <Button onPress={() => router.navigate("/(tabs)/exams/createExam")}>
-            <Icon as={PlusIcon} />
+          <Button 
+          mb="$4"
+          bgColor="$hospitalGreen"
+          borderRadius="$full"
+          onPress={() => router.navigate("/(tabs)/exams/createExam")}>
+            <Icon as={PlusIcon} color="$white" size="lg" />
           </Button>
         </Box>
       </Box>
