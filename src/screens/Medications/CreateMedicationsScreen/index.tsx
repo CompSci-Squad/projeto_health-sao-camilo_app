@@ -1,9 +1,32 @@
+import {
+  Box,
+  Center,
+  FormControl,
+  HStack,
+  Select,
+  Spinner,
+  Text,
+  SelectInput,
+  SelectTrigger,
+  SelectIcon,
+  Icon,
+  ChevronDownIcon,
+  SelectPortal,
+  SelectItem,
+  SelectBackdrop,
+  SelectContent,
+  SelectDragIndicator,
+  SelectDragIndicatorWrapper,
+  FlatList,
+  Input,
+  InputField,
+} from "@gluestack-ui/themed";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useFocusEffect, useRouter } from "expo-router";
 import React, { useCallback, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import {
   View,
-  Text,
   Button,
   TextInput,
   StyleSheet,
@@ -11,6 +34,7 @@ import {
   Platform,
 } from "react-native";
 
+import ScreenContainer from "../../../components/ScreenContainer";
 import { supabase } from "../../../utils/supabase/supbase";
 
 const AddMedicationScreen = () => {
@@ -24,6 +48,8 @@ const AddMedicationScreen = () => {
   const [medicationNames, setMedicationNames] = useState<any>([]);
   const [isFinished, setIsFinished] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const { control, handleSubmit } = useForm();
 
   const onDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || finalDate;
@@ -57,25 +83,14 @@ const AddMedicationScreen = () => {
     }
   };
 
-  const fetchAllMedicationsName = async () => {
-    setIsLoading(true);
-    const { status, data } = await supabase
-      .from("medicine_name")
-      .select("name");
 
-    if (status !== 200) {
-      Alert.alert("Erro", "Não foi possível obter os nomes dos medicamentos");
-    } else {
-      setMedicationNames(data);
-    }
-    setIsLoading(false);
-  };
-
-  useFocusEffect(
-    useCallback(() => {
-      fetchAllMedicationsName();
-    }, []),
-  );
+  if (isLoading)
+    return (
+      <HStack space="sm" flex={1} alignItems="center" justifyContent="center">
+        <Spinner color="$hospitalGreen" />
+        <Text size="md">Aguarde</Text>
+      </HStack>
+    );
 
   return (
     <View style={styles.container}>
@@ -87,7 +102,7 @@ const AddMedicationScreen = () => {
       />
       <TextInput
         style={styles.input}
-        placeholder="Dosagem" // criar um select para essa area
+        placeholder="Dosagem"
         value={dosage}
         onChangeText={setDosage}
       />
