@@ -13,6 +13,7 @@ export type Database = {
         Row: {
           address: Json | null
           created_at: string
+          date: string | null
           id: string
           reminder_type: Database["public"]["Enums"]["reminderType"] | null
           reminder_value: number | null
@@ -22,6 +23,7 @@ export type Database = {
         Insert: {
           address?: Json | null
           created_at?: string
+          date?: string | null
           id?: string
           reminder_type?: Database["public"]["Enums"]["reminderType"] | null
           reminder_value?: number | null
@@ -31,6 +33,7 @@ export type Database = {
         Update: {
           address?: Json | null
           created_at?: string
+          date?: string | null
           id?: string
           reminder_type?: Database["public"]["Enums"]["reminderType"] | null
           reminder_value?: number | null

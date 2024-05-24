@@ -90,7 +90,6 @@ const ProfileScreen = () => {
       setIsLoading(false);
     }
   };
-  console.log(user);
 
   const onError: SubmitErrorHandler<ProfileFormData> = (errors, e) => {
     console.log(JSON.stringify(errors));
@@ -114,7 +113,7 @@ const ProfileScreen = () => {
         flexDirection="column"
       >
         <Box w="$64">
-          <ProfileImage profile_url={user?.profile_picture_url} />
+          <ProfileImage />
           <Controller
             control={control}
             render={({ field: { onChange, value }, fieldState: { error } }) => (
