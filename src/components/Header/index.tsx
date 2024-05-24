@@ -23,6 +23,10 @@ const Header = () => {
     .from("assets")
     .getPublicUrl("logoAppSao-Camilo.png").data.publicUrl;
 
+  const userUri = supabase.storage
+    .from("user_profile")
+    .getPublicUrl(`${user?.id!}/profilePicture.jpeg`).data.publicUrl;
+
   return (
     <HStack
       display="flex"
@@ -42,7 +46,7 @@ const Header = () => {
         borderRadius={6}
       />
 
-      <Text fontWeight="$bold">
+      <Text fontWeight="$bold" ml="$8">
         {changeRouteName(pathName.toUpperCase().split("/")[1])}
       </Text>
 
@@ -59,7 +63,7 @@ const Header = () => {
           >
             <AvatarImage
               source={{
-                uri: user.profile_picture_url,
+                uri: userUri,
                 cache: "reload",
               }}
               alt="profile image"

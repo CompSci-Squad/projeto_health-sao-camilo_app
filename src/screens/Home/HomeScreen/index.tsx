@@ -51,14 +51,21 @@ const HomeScreen = () => {
   ];
 
   const fetchUserInfo = async () => {
-    setIsLoading(true);
-    const responses = (await getHomeInformation(user!.id)) ?? [];
-    setGlucose(responses[0]);
-    setHeight(responses[1]);
-    setWeight(responses[2]);
-    setPressure(responses[3]);
-    setImc((responses[2] / (responses[1] / 100) ** 2).toFixed(2));
-    setIsLoading(false);
+    try {
+      setIsLoading(true);
+      const responses = (await getHomeInformation(user!.id)) ?? [];
+      setGlucose(responses[0]);
+      setHeight(responses[1]);
+      setWeight(responses[2]);
+      setPressure(responses[3]);
+      setImc((responses[2] / (responses[1] / 100) ** 2).toFixed(2));
+      setIsLoading(false);
+      
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useFocusEffect(
