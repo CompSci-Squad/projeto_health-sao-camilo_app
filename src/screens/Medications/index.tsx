@@ -43,7 +43,7 @@ const MedicationsHomeScreen = () => {
               }}
             >
               <MedicationsCard
-                nameId={`Nome do Medicamento: ${item.medicine_name_id}`}
+                name={`Nome do Medicamento: ${item.medicine_name_id}`}
                 time={`Intervalo: ${item.interval_in_minutes ? `${item.interval_in_minutes} minutos` : "N/A"}`}
                 endDate={`Fim: ${dayjs(item.final_date).format("DD/MM/YYYY HH:mm")}`}
                 dosage={`Dosagem: ${item.dosage}`}

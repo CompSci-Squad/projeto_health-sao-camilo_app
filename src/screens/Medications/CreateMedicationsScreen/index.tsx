@@ -22,6 +22,7 @@ const AddMedicationScreen = () => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
   const [medicationNames, setMedicationNames] = useState<any>([]);
+  const [isFinished, setIsFinished] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const onDateChange = (event, selectedDate) => {
@@ -37,23 +38,24 @@ const AddMedicationScreen = () => {
     setFinalDate(currentTime);
   };
 
-  // const handleAddMedication = async () => {
-  //   const { data, error } = await supabase.from("medicine").insert([
-  //     {
-  //       dosage,
-  //       final_date: finalDate.toISOString(),
-  //       is_continuous: isContinuous,
-  //       medicine_name_id: medicineNameId,
-  //     },
-  //   ]);
+  const handleAddMedication = async () => {
+    const { data, error } = await supabase.from("medicine").insert([
+      {
+        dosage,
+        final_date: finalDate.toISOString(),
+        is_continuous: isContinuous,
+        medicine_name_id: medicineNameId,
+        is_finished: isFinished,
+      },
+    ]);
 
-  //   if (error) {
-  //     Alert.alert("Erro", error.message);
-  //   } else {
-  //     Alert.alert("Sucesso", "Medicamento adicionado com sucesso!");
-  //     router.push("/"); // Navega de volta para a tela inicial
-  //   }
-  // };
+    if (error) {
+      Alert.alert("Erro", error.message);
+    } else {
+      Alert.alert("Sucesso", "Medicamento adicionado com sucesso!");
+      router.push("/"); // Navega de volta para a tela inicial
+    }
+  };
 
   const fetchAllMedicationsName = async () => {
     setIsLoading(true);
@@ -79,15 +81,15 @@ const AddMedicationScreen = () => {
     <View style={styles.container}>
       <TextInput
         style={styles.input}
-        placeholder="Dosagem"
-        value={dosage}
-        onChangeText={setDosage}
+        placeholder="Nome do Medicamento"
+        value={medicationNames}
+        onChangeText={setMedicationNames}
       />
       <TextInput
         style={styles.input}
-        placeholder="ID do Nome do Medicamento" // criar um select para essa area
-        value={medicineNameId}
-        onChangeText={setMedicineNameId}
+        placeholder="Dosagem" // criar um select para essa area
+        value={dosage}
+        onChangeText={setDosage}
       />
       <View>
         <Button
@@ -116,6 +118,10 @@ const AddMedicationScreen = () => {
         {finalDate.toLocaleTimeString()}
       </Text>
       <View style={styles.checkboxContainer}>
+        <Button
+          title={`Terminado: ${isFinished ? "Sim" : "Não"}`}
+          onPress={() => setIsFinished(!isFinished)}
+        />
         <Button
           title={`Contínuo: ${isContinuous ? "Sim" : "Não"}`}
           onPress={() => setIsContinuous(!isContinuous)}

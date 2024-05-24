@@ -1,14 +1,16 @@
 import { View, Text } from "@gluestack-ui/themed";
 import { useFocusEffect } from "expo-router";
 import React, { useCallback, useState } from "react";
-import { supabase } from "../../utils/supabase/supbase";
 import { Alert } from "react-native";
+
+import { supabase } from "../../utils/supabase/supbase";
 
 type MedicationsCardProps = {
   nameId: string;
   time: string;
   endDate: string;
   dosage: string;
+  isContinuous: string;
 };
 
 const MedicationsCard: React.FC<MedicationsCardProps> = ({
@@ -16,6 +18,7 @@ const MedicationsCard: React.FC<MedicationsCardProps> = ({
   nameId,
   endDate,
   dosage,
+  isContinuous,
 }) => {
   const [name, setName] = useState();
 
@@ -45,6 +48,7 @@ const MedicationsCard: React.FC<MedicationsCardProps> = ({
       <Text>{time}</Text>
       <Text>{endDate}</Text>
       <Text>{dosage}</Text>
+      <Text>{isContinuous}</Text>
     </View>
   );
 };
