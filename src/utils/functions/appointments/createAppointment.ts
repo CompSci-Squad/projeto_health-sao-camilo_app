@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+
 import { supabase } from "../../supabase/supbase";
 
 export const createAppointment = async (payload: {
@@ -33,7 +34,7 @@ export const createAppointment = async (payload: {
       console.log(error);
       throw error;
     }
-    return 201;
+    return status;
   } catch (error) {
     console.log(error);
   }
