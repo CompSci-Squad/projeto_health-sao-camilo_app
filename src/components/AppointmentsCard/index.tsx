@@ -43,7 +43,7 @@ const AppointmentsCard: React.FC<AppointmentCardProps> = ({
             {dayjs(date).format("DD/MM/YYYY")} as {dayjs(date).format("HH:mm")}
           </Heading>
           <Heading>
-            Rua {address.street}, {address.number}
+            {address.street}, {address.number}
           </Heading>
         </VStack>
 
