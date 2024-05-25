@@ -6,18 +6,32 @@ import {
   Button,
   Icon,
 } from "@gluestack-ui/themed";
-import { useRouter } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
+import { useCallback, useState } from "react";
+import { useUserStore } from "../../utils/stores/userStore";
+import { supabase } from "../../utils/supabase/supbase";
 
-type ProfileImageProps = {
-  profile_url: string | undefined | null;
-};
-
-const ProfileImage: React.FC<ProfileImageProps> = ({ profile_url }) => {
+const ProfileImage = () => {
   const router = useRouter();
+  const [profileUrl, setProfileUrl] = useState("");
+  const { user } = useUserStore();
+
+  const fetchImage = () => {
+    const data = supabase.storage
+      .from("user_profile")
+      .getPublicUrl(`${user?.id!}/profilePicture.jpeg`).data.publicUrl;
+    setProfileUrl(data);
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchImage();
+    }, []),
+  );
 
   return (
     <Box display="flex" alignItems="center" justifyContent="center" mb="$32">
-      {profile_url ? (
+      {profileUrl ? (
         <Button
           bg="transparent"
           onPress={() =>
@@ -35,7 +49,7 @@ const ProfileImage: React.FC<ProfileImageProps> = ({ profile_url }) => {
           >
             <AvatarImage
               source={{
-                uri: profile_url,
+                uri: profileUrl,
                 cache: "reload",
               }}
               alt="profile image"
