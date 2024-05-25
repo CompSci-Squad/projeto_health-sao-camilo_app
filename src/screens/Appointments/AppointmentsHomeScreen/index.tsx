@@ -14,6 +14,10 @@ import { useCallback, useState } from "react";
 import AppointmentsCard from "../../../components/AppointmentsCard";
 import ScreenContainer from "../../../components/ScreenContainer";
 import { getAppointments } from "../../../utils/functions/appointments/getAppointments";
+import {
+  registerForPushNotificationsAsync,
+  schedulePushNotification,
+} from "../../../utils/pushNotifications";
 import { useUserStore } from "../../../utils/stores/userStore";
 
 const AppointmentsHome = () => {
@@ -21,6 +25,7 @@ const AppointmentsHome = () => {
   const [data, setData] = useState<any>();
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useUserStore();
+  registerForPushNotificationsAsync();
   const fetchAppointments = async () => {
     setIsLoading(true);
     const response = await getAppointments(user?.id!);
@@ -30,6 +35,7 @@ const AppointmentsHome = () => {
 
   useFocusEffect(
     useCallback(() => {
+      registerForPushNotificationsAsync();
       fetchAppointments();
     }, []),
   );

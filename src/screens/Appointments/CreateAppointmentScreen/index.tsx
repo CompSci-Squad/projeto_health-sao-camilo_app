@@ -33,6 +33,7 @@ import MaskedInput from "../../../components/MaskedInput";
 import ScreenContainer from "../../../components/ScreenContainer";
 import { createAppointment } from "../../../utils/functions/appointments/createAppointment";
 import { useUserStore } from "../../../utils/stores/userStore";
+import { schedulePushNotification } from "../../../utils/pushNotifications";
 
 const CreateAppointmentScreen = () => {
   const router = useRouter();
@@ -68,7 +69,8 @@ const CreateAppointmentScreen = () => {
             action="success"
           />
         ),
-        onCloseComplete: () => {
+        onCloseComplete: async () => {
+          await schedulePushNotification();
           setIsLoading(false);
           router.back();
         },

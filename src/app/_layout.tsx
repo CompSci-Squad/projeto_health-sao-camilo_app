@@ -5,6 +5,7 @@ import { Stack, SplashScreen } from "expo-router";
 import { useEffect } from "react";
 
 import { config } from "../../gluestack.config";
+import { registerForPushNotificationsAsync } from "../utils/pushNotifications";
 
 export {
   // Catch any errors thrown by the Layout component.
