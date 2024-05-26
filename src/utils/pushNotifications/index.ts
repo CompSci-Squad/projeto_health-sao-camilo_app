@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import Constants from "expo-constants";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
@@ -53,13 +54,22 @@ export async function registerForPushNotificationsAsync() {
   return token;
 }
 
-export async function schedulePushNotification(timeInSeconds: number, ) {
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: "You've got notification!",
-        body: 'Here is the notification body',
-        data: { data: 'goes here' },
-      },
-      trigger: { seconds: 2 },
-    });
-  }
+export async function schedulePushNotification(
+  date: string,
+  specialty: string,
+) {
+  const now = dayjs();
+  const data = dayjs(date).format("DD/MM");
+  const horario = dayjs(date).format("HH:mm");
+  const targetDate = dayjs(date).subtract(1, "day");
+
+  const seconds = Math.floor(targetDate.diff(now) / 1000);
+
+  await Notifications.scheduleNotificationAsync({
+    content: {
+      title: "Você tem uma consulta próxima",
+      body: `Você tem uma consulta na data ${data} no horario ${horario} com a especialidade ${specialty}`,
+    },
+    trigger: { seconds },
+  });
+}

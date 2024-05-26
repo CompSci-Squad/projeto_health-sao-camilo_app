@@ -15,8 +15,6 @@ export type Database = {
           created_at: string
           date: string | null
           id: string
-          reminder_type: Database["public"]["Enums"]["reminderType"] | null
-          reminder_value: number | null
           specialty: string | null
           userId: string | null
         }
@@ -25,8 +23,6 @@ export type Database = {
           created_at?: string
           date?: string | null
           id?: string
-          reminder_type?: Database["public"]["Enums"]["reminderType"] | null
-          reminder_value?: number | null
           specialty?: string | null
           userId?: string | null
         }
@@ -35,8 +31,6 @@ export type Database = {
           created_at?: string
           date?: string | null
           id?: string
-          reminder_type?: Database["public"]["Enums"]["reminderType"] | null
-          reminder_value?: number | null
           specialty?: string | null
           userId?: string | null
         }
@@ -146,54 +140,37 @@ export type Database = {
       medicine: {
         Row: {
           created_at: string
-          dosage: string
-          final_date: string
+          dosage: string | null
+          final_date: string | null
           id: string
           interval_in_minutes: number | null
-          is_continuous: boolean
-          is_finished: boolean
-          medicine_name_id: string
+          is_continuos: boolean | null
+          name: string | null
           user_id: string | null
         }
         Insert: {
           created_at?: string
-          dosage: string
-          final_date: string
+          dosage?: string | null
+          final_date?: string | null
           id?: string
           interval_in_minutes?: number | null
-          is_continuous: boolean
-          is_finished: boolean
-          medicine_name_id?: string
+          is_continuos?: boolean | null
+          name?: string | null
           user_id?: string | null
         }
         Update: {
           created_at?: string
-          dosage?: string
-          final_date?: string
+          dosage?: string | null
+          final_date?: string | null
           id?: string
           interval_in_minutes?: number | null
-          is_continuous?: boolean
-          is_finished?: boolean
-          medicine_name_id?: string
+          is_continuos?: boolean | null
+          name?: string | null
           user_id?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "medicine_medicine_name_id_fkey"
-            columns: ["medicine_name_id"]
-            isOneToOne: false
-            referencedRelation: "medicine_name"
-            referencedColumns: ["id"]
-          },
-          {
             foreignKeyName: "medicine_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_info"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "public_medicine_userId_fkey"
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "user_info"

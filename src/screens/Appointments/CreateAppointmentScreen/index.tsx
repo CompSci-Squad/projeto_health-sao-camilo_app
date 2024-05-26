@@ -23,6 +23,7 @@ import {
   useToast,
   ChevronDownIcon,
 } from "@gluestack-ui/themed";
+import dayjs from "dayjs";
 import { useRouter } from "expo-router";
 import { PlusCircleIcon, XCircle } from "lucide-react-native";
 import { useState } from "react";
@@ -32,8 +33,8 @@ import CustomToast from "../../../components/CustomToast";
 import MaskedInput from "../../../components/MaskedInput";
 import ScreenContainer from "../../../components/ScreenContainer";
 import { createAppointment } from "../../../utils/functions/appointments/createAppointment";
-import { useUserStore } from "../../../utils/stores/userStore";
 import { schedulePushNotification } from "../../../utils/pushNotifications";
+import { useUserStore } from "../../../utils/stores/userStore";
 
 const CreateAppointmentScreen = () => {
   const router = useRouter();
@@ -54,8 +55,6 @@ const CreateAppointmentScreen = () => {
       time: data.time,
       address,
       userId: user?.id!,
-      reminder_type: data.reminderType,
-      reminder_value: data.reminderValue,
     });
 
     if (status === 201) {
@@ -70,7 +69,13 @@ const CreateAppointmentScreen = () => {
           />
         ),
         onCloseComplete: async () => {
-          await schedulePushNotification();
+          const currentYear = new Date().getFullYear();
+          const [day, month] = data.date.split("/").map(Number);
+          const [hour, minute] = data.time.split(":").map(Number);
+          const date = dayjs(
+            `${currentYear}-${month}-${day}T${hour}:${minute}`,
+          ).toISOString();
+          await schedulePushNotification(date, data.specialty);
           setIsLoading(false);
           router.back();
         },

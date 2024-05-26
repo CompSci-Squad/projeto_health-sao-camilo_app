@@ -14,10 +14,7 @@ import { useCallback, useState } from "react";
 import AppointmentsCard from "../../../components/AppointmentsCard";
 import ScreenContainer from "../../../components/ScreenContainer";
 import { getAppointments } from "../../../utils/functions/appointments/getAppointments";
-import {
-  registerForPushNotificationsAsync,
-  schedulePushNotification,
-} from "../../../utils/pushNotifications";
+import { registerForPushNotificationsAsync } from "../../../utils/pushNotifications";
 import { useUserStore } from "../../../utils/stores/userStore";
 
 const AppointmentsHome = () => {
