@@ -165,66 +165,6 @@ const CreateAppointmentScreen = () => {
             name="time"
             rules={{ required: true }}
           />
-          <Controller
-            control={control}
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
-              <FormControl isInvalid={!!error} mt="$4">
-                <Select onValueChange={onChange} selectedValue={value}>
-                  <SelectTrigger
-                    variant="rounded"
-                    borderColor="$hospitalGreen"
-                    borderWidth="$2"
-                  >
-                    <SelectInput placeholder="Selecione a opção para o lembrete" />
-                    <SelectIcon mr="$3">
-                      <Icon as={ChevronDownIcon} />
-                    </SelectIcon>
-                  </SelectTrigger>
-                  <SelectPortal>
-                    <SelectBackdrop />
-                    <SelectContent>
-                      <SelectDragIndicatorWrapper>
-                        <SelectDragIndicator />
-                      </SelectDragIndicatorWrapper>
-                      {["DAYS", "HOURS"].map((genero) => (
-                        <SelectItem
-                          label={genero === "DAYS" ? "dias" : "horas"}
-                          value={genero}
-                          key={genero}
-                          mb={genero === "HOURS" ? "$10" : ""}
-                        />
-                      ))}
-                    </SelectContent>
-                  </SelectPortal>
-                </Select>
-              </FormControl>
-            )}
-            name="reminderType"
-            rules={{ required: true }}
-          />
-
-          <Controller
-            control={control}
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
-              <FormControl isInvalid={!!error} mt="$4">
-                <Input
-                  variant="rounded"
-                  borderColor="$hospitalGreen"
-                  borderWidth="$2"
-                >
-                  <InputField
-                    placeholder="Quanto tempo de antecedencia?"
-                    type="text"
-                    keyboardType="numeric"
-                    onChangeText={(value) => onChange(value)}
-                    value={value}
-                  />
-                </Input>
-              </FormControl>
-            )}
-            name="reminderValue"
-            rules={{ required: true }}
-          />
 
           <Controller
             control={control}
