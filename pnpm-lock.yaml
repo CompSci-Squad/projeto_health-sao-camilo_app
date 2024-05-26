@@ -161,7 +161,7 @@ devDependencies:
     specifier: ^9.0.11
     version: 9.0.11
   jest:
-    specifier: ^29.2.1
+    specifier: ^29.7.0
     version: 29.7.0(@types/node@20.12.2)
   jest-expo:
     specifier: ~51.0.1
