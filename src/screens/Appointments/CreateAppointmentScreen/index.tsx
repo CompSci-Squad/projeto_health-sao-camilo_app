@@ -23,6 +23,7 @@ import {
   useToast,
   ChevronDownIcon,
 } from "@gluestack-ui/themed";
+import dayjs from "dayjs";
 import { useRouter } from "expo-router";
 import { PlusCircleIcon, XCircle } from "lucide-react-native";
 import { useState } from "react";
@@ -32,6 +33,7 @@ import CustomToast from "../../../components/CustomToast";
 import MaskedInput from "../../../components/MaskedInput";
 import ScreenContainer from "../../../components/ScreenContainer";
 import { createAppointment } from "../../../utils/functions/appointments/createAppointment";
+import { schedulePushNotification } from "../../../utils/pushNotifications";
 import { useUserStore } from "../../../utils/stores/userStore";
 
 const CreateAppointmentScreen = () => {
@@ -53,8 +55,6 @@ const CreateAppointmentScreen = () => {
       time: data.time,
       address,
       userId: user?.id!,
-      reminder_type: data.reminderType,
-      reminder_value: data.reminderValue,
     });
 
     if (status === 201) {
@@ -68,7 +68,14 @@ const CreateAppointmentScreen = () => {
             action="success"
           />
         ),
-        onCloseComplete: () => {
+        onCloseComplete: async () => {
+          const currentYear = new Date().getFullYear();
+          const [day, month] = data.date.split("/").map(Number);
+          const [hour, minute] = data.time.split(":").map(Number);
+          const date = dayjs(
+            `${currentYear}-${month}-${day}T${hour}:${minute}`,
+          ).toISOString();
+          await schedulePushNotification(date, data.specialty);
           setIsLoading(false);
           router.back();
         },
@@ -156,66 +163,6 @@ const CreateAppointmentScreen = () => {
               </FormControl>
             )}
             name="time"
-            rules={{ required: true }}
-          />
-          <Controller
-            control={control}
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
-              <FormControl isInvalid={!!error} mt="$4">
-                <Select onValueChange={onChange} selectedValue={value}>
-                  <SelectTrigger
-                    variant="rounded"
-                    borderColor="$hospitalGreen"
-                    borderWidth="$2"
-                  >
-                    <SelectInput placeholder="Selecione a opção para o lembrete" />
-                    <SelectIcon mr="$3">
-                      <Icon as={ChevronDownIcon} />
-                    </SelectIcon>
-                  </SelectTrigger>
-                  <SelectPortal>
-                    <SelectBackdrop />
-                    <SelectContent>
-                      <SelectDragIndicatorWrapper>
-                        <SelectDragIndicator />
-                      </SelectDragIndicatorWrapper>
-                      {["DAYS", "HOURS"].map((genero) => (
-                        <SelectItem
-                          label={genero === "DAYS" ? "dias" : "horas"}
-                          value={genero}
-                          key={genero}
-                          mb={genero === "HOURS" ? "$10" : ""}
-                        />
-                      ))}
-                    </SelectContent>
-                  </SelectPortal>
-                </Select>
-              </FormControl>
-            )}
-            name="reminderType"
-            rules={{ required: true }}
-          />
-
-          <Controller
-            control={control}
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
-              <FormControl isInvalid={!!error} mt="$4">
-                <Input
-                  variant="rounded"
-                  borderColor="$hospitalGreen"
-                  borderWidth="$2"
-                >
-                  <InputField
-                    placeholder="Quanto tempo de antecedencia?"
-                    type="text"
-                    keyboardType="numeric"
-                    onChangeText={(value) => onChange(value)}
-                    value={value}
-                  />
-                </Input>
-              </FormControl>
-            )}
-            name="reminderValue"
             rules={{ required: true }}
           />
 

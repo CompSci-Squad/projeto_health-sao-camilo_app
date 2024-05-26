@@ -7,8 +7,6 @@ export const createAppointment = async (payload: {
   date: string;
   time: string;
   address: any;
-  reminder_type: "HOURS" | "DAYS";
-  reminder_value: number;
   userId: string;
 }) => {
   try {
@@ -25,8 +23,6 @@ export const createAppointment = async (payload: {
         date,
         address: payload.address,
         userId: payload.userId,
-        reminder_type: payload.reminder_type,
-        reminder_value: payload.reminder_value,
       },
     ]);
 
