@@ -1,4 +1,4 @@
-import AppointmentsHome from "../../../screens/Appointments/AppointmentsHome";
+import AppointmentsHome from "../../../screens/Appointments/AppointmentsHomeScreen";
 
 export default () => {
   return <AppointmentsHome />;

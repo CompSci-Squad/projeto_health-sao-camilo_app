@@ -2,7 +2,6 @@ import { AntDesign, Entypo } from "@expo/vector-icons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Tabs } from "expo-router";
 import React from "react";
-import { StyleSheet } from "react-native";
 
 import Header from "../../components/Header";
 
@@ -19,9 +18,10 @@ export default function TabLayout() {
         name="index"
         options={{
           tabBarIcon: ({ color }) => (
-            <FontAwesome size={28} name="home" color={color} />
+            <FontAwesome size={24} name="home" color={color} />
           ),
-          tabBarShowLabel: false,
+          tabBarShowLabel: true,
+          tabBarLabel: "Home",
         }}
       />
       <Tabs.Screen
@@ -30,7 +30,8 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <Entypo name="text-document" size={24} color={color} />
           ),
-          tabBarShowLabel: false,
+          tabBarShowLabel: true,
+          tabBarLabel: "Exames",
         }}
       />
       <Tabs.Screen
@@ -39,7 +40,8 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <AntDesign name="medicinebox" size={24} color={color} />
           ),
-          tabBarShowLabel: false,
+          tabBarShowLabel: true,
+          tabBarLabel: "Medicamentos",
         }}
       />
       <Tabs.Screen
@@ -48,7 +50,8 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <Entypo name="calendar" size={24} color={color} />
           ),
-          tabBarShowLabel: false,
+          tabBarShowLabel: true,
+          tabBarLabel: "Agendamentos",
         }}
       />
     </Tabs>

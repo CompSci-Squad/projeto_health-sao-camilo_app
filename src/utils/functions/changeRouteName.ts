@@ -1,6 +1,6 @@
 export const changeRouteName = (value: string) => {
   switch (value) {
-    case "HOME":
+    case "HOMEINDEX":
       return "HOME";
     case "EXAMS":
       return "EXAMES";

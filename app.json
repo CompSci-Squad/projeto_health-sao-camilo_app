@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "my-app",
-    "slug": "my-app",
+    "name": "Gestão saúde",
+    "slug": "gestao-saude",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/logoAppSao-Camilo.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/cachorro_arabe.png",
+      "image": "./assets/images/logoAppSao-Camilo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -20,13 +20,19 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/logoAppSao-Camilo.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE"
+      ]
     },
-   "androidStatusBar": {
-    "barStyle": "dark-content"
-  },
+    "androidStatusBar": {
+      "barStyle": "dark-content"
+    },
     "androidNavigationBar": {
       "barStyle": "dark-content",
       "backgroundColor": "#ffffff"
@@ -42,10 +48,24 @@
       "expo-navigation-bar",
       "expo-camera",
       "expo-document-picker",
-      "expo-image-picker"
+      "expo-image-picker",
+      "expo-media-library"
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "expo-navigation-bar": {
+        "backgroundColor": "#ffffff",
+        "barStyle": "dark"
+      },
+      "eas": {
+        "projectId": "b59bfc67-7c0b-4d0f-9e7a-77a20c117135"
+      }
+    },
+    "owner": "do-ald533"
   }
 }
