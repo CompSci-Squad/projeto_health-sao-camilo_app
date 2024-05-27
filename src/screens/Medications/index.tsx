@@ -1,24 +1,32 @@
-import dayjs from "dayjs";
+import {
+  Box,
+  Button,
+  FlatList,
+  HStack,
+  Icon,
+  Spinner,
+  Text,
+} from "@gluestack-ui/themed";
 import { useFocusEffect, useRouter } from "expo-router";
-import React, { useState, useEffect, useCallback } from "react";
-import { View, Button, Alert, FlatList, TouchableOpacity } from "react-native";
+import { PlusIcon } from "lucide-react-native";
+import { useCallback, useState } from "react";
 
-import { supabase } from "../../utils/supabase/supbase";
+import { getMedications } from "../../utils/functions/medications/getMedications";
+import { useUserStore } from "../../utils/stores/userStore";
 
 import MedicationsCard from "@/components/MedicationsCard";
+import ScreenContainer from "@/components/ScreenContainer";
 
-const MedicationsHomeScreen = () => {
+const MedicationsHome = () => {
   const router = useRouter();
-  const [data, setData] = useState<any[]>([]);
-
+  const [data, setData] = useState<any>();
+  const [isLoading, setIsLoading] = useState(false);
+  const { user } = useUserStore();
   const fetchMedications = async () => {
-    const { data, error } = await supabase.from("medicine").select("*");
-
-    if (error) {
-      Alert.alert("Erro", error.message);
-    } else {
-      setData(data);
-    }
+    setIsLoading(true);
+    const response = await getMedications(user?.id!);
+    setData(response ?? null);
+    setIsLoading(false);
   };
 
   useFocusEffect(
@@ -27,55 +35,50 @@ const MedicationsHomeScreen = () => {
     }, []),
   );
 
+  if (isLoading)
+    return (
+      <HStack space="sm" flex={1} alignItems="center" justifyContent="center">
+        <Spinner color="$hospitalGreen" />
+        <Text size="md">Aguarde</Text>
+      </HStack>
+    );
+
   return (
-    <View style={{ marginTop: 20 }}>
-      <FlatList
-        data={data}
-        renderItem={({ item }) => (
-          <TouchableOpacity>
-            <View
-              style={{
-                backgroundColor: "rgba(128, 128, 128, 0.5)",
-                padding: 20,
-                margin: 10,
-                borderRadius: 20,
-                marginBottom: 10,
-              }}
-            >
-              <MedicationsCard
-                name={`Nome do Medicamento: ${item.medicine_name_id}`}
-                time={`Intervalo: ${item.interval_in_minutes ? `${item.interval_in_minutes} minutos` : "N/A"}`}
-                endDate={`Fim: ${dayjs(item.final_date).format("DD/MM/YYYY HH:mm")}`}
-                dosage={`Dosagem: ${item.dosage}`}
-                isContinuous={`Contínuo: ${item.is_continuous ? "Sim" : "Não"}`}
-                isFinished={`Finalizado: ${item.is_finished ? "Sim" : "Não"}`}
-              />
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Button
-                  title="Excluir"
-                  onPress={() =>
-                    Alert.alert(
-                      "Excluir",
-                      "Tem certeza que deseja excluir este medicamento?",
-                    )
-                  }
-                />
-              </View>
-            </View>
-          </TouchableOpacity>
-        )}
-        keyExtractor={(item) => item.id}
-      />
-      <View style={{ marginTop: 20, alignItems: "center" }}>
-        <Button title="+" onPress={() => router.push("/createMedications")} />
-      </View>
-    </View>
+    <ScreenContainer>
+      <Box flex={1} alignItems="center" justifyContent="center">
+        <FlatList
+          data={data}
+          renderItem={({ item }: { item: any }) => (
+            <MedicationsCard
+              name={item.name}
+              dosage={item.dosage}
+              endDate={item.endDate}
+              isContinuos={item.isContinuos}
+              interval={item.interval_in_minutes / 60}
+              id={item.id}
+              fetchMedications={fetchMedications}
+            />
+          )}
+          keyExtractor={(item: any) => item.id}
+        />
+        <Box
+          display="flex"
+          flexDirection="column-reverse"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Button
+            mb="$4"
+            bgColor="$hospitalGreen"
+            borderRadius="$full"
+            onPress={() => router.navigate("/createMedications")}
+          >
+            <Icon as={PlusIcon} color="$white" size="lg" />
+          </Button>
+        </Box>
+      </Box>
+    </ScreenContainer>
   );
 };
 
-export default MedicationsHomeScreen;
+export default MedicationsHome;
