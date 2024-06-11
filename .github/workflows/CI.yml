@@ -31,4 +31,4 @@ jobs:
           cache: "pnpm"
       - run: pnpm install
       - run: pnpm lint
-      - run: pnpm test --passWithNoTests
+      - run: pnpm test
