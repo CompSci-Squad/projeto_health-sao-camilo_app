@@ -45,6 +45,7 @@ export default function AppLayout() {
         <Stack.Screen name="profile" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ headerShown: false }} />
         <Stack.Screen name="createNewRecord" options={{ headerShown: false }} />
+        <Stack.Screen name="terms" options={{ headerShown: false }} />
       </Stack>
     </GluestackUIProvider>
   );
