@@ -33,10 +33,15 @@ import {
   AlertCircleIcon,
   ScrollView,
   Image,
+  Checkbox,
+  CheckboxIndicator,
+  CheckboxIcon,
+  CheckIcon,
+  VStack,
 } from "@gluestack-ui/themed";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AuthError, PostgrestError } from "@supabase/supabase-js";
-import { useRouter } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { useState } from "react";
 import { Controller, useForm, SubmitErrorHandler } from "react-hook-form";
 
@@ -54,6 +59,7 @@ const SignUpScreen = () => {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
   const { setUser } = useUserStore();
 
   const imageUri = supabase.storage
@@ -373,11 +379,35 @@ const SignUpScreen = () => {
               name="birthDate"
               rules={{ required: true }}
             />
+
+            <Checkbox
+              size="md"
+              isInvalid={false}
+              isDisabled={false}
+              mt="$6"
+              onChange={() => setAcceptedTerms(!acceptedTerms)}
+            >
+              <CheckboxIndicator mr="$2">
+                <CheckboxIcon
+                  bgColor="$hospitalGreen"
+                  borderColor="transparent"
+                  as={CheckIcon}
+                />
+              </CheckboxIndicator>
+              <VStack>
+                <Text>Clicando na caixa ao lado voce concorda com os</Text>
+                <Link href="/terms">
+                  <Text color="$blue600">Termos e Condições</Text>
+                </Link>
+              </VStack>
+            </Checkbox>
+
             <Button
               mt="$6"
               onPress={handleSubmit(onSubmit, onError)}
-              bgColor="$hospitalGreen"
+              bgColor={acceptedTerms ? "$hospitalGreen" : "$grey"}
               $pressed-bg="$darkHospitalGreen"
+              disabled={acceptedTerms}
             >
               <ButtonText>Cadastrar</ButtonText>
             </Button>
