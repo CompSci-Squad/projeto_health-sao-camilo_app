@@ -1,7 +1,7 @@
 name: development build update
 on: 
     push:
-        branches: ["develop", "main"]
+        branches: ["main", "develop"]
 
 jobs:
   update:
