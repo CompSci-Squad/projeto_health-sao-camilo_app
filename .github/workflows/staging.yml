@@ -1,8 +1,7 @@
-name: EAS Build
+name: staging preview build
 on:
   push:
-    branches:
-      - main
+    branches: ["main"]
 
 jobs:
   build:

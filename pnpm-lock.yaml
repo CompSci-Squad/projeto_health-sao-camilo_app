@@ -47,6 +47,9 @@ dependencies:
   expo-constants:
     specifier: ~16.0.1
     version: 16.0.1(expo@51.0.6)
+  expo-dev-client:
+    specifier: ~4.0.17
+    version: 4.0.17(expo@51.0.6)
   expo-device:
     specifier: ~6.0.2
     version: 6.0.2(expo@51.0.6)
@@ -5830,7 +5833,6 @@ packages:
       json-schema-traverse: 1.0.0
       require-from-string: 2.0.2
       uri-js: 4.4.1
-    dev: true
 
   /ajv@8.12.0:
     resolution: {integrity: sha512-sRu1kpcO9yLtYxBKvqfTeh9KzZEwO3STyX1HT+4CaDzC6HpTGYhIhPIzj9XuKU7KYDwnaeh5hcOwjy1QuJzBPA==}
@@ -8140,6 +8142,54 @@ packages:
       - supports-color
     dev: false
 
+  /expo-dev-client@4.0.17(expo@51.0.6):
+    resolution: {integrity: sha512-dv0Yju1awQo19QA06JWhR3/8Myuk17PViiFbykuvz0oLGKka9vRM3YhYFsTISDnljGZyA57VcpWgiZEi1U5WUg==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 51.0.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3)
+      expo-dev-launcher: 4.0.19(expo@51.0.6)
+      expo-dev-menu: 5.0.15(expo@51.0.6)
+      expo-dev-menu-interface: 1.8.3(expo@51.0.6)
+      expo-manifests: 0.14.3(expo@51.0.6)
+      expo-updates-interface: 0.16.2(expo@51.0.6)
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /expo-dev-launcher@4.0.19(expo@51.0.6):
+    resolution: {integrity: sha512-5M0f/vD8sx659m1PsXimK9DuABuLQI/R5WBm07yTasICiOZuMEPB2RAjwd4vMwssTS5l1cJW/GAUcKRXNWzLGQ==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      ajv: 8.11.0
+      expo: 51.0.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3)
+      expo-dev-menu: 5.0.15(expo@51.0.6)
+      expo-manifests: 0.14.3(expo@51.0.6)
+      resolve-from: 5.0.0
+      semver: 7.6.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /expo-dev-menu-interface@1.8.3(expo@51.0.6):
+    resolution: {integrity: sha512-QM0LRozeFT5Ek0N7XpV93M+HMdEKRLEOXn0aW5M3uoUlnqC1+PLtF3HMy3k3hMKTTE/kJ1y1Z7akH07T0lunCQ==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 51.0.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3)
+    dev: false
+
+  /expo-dev-menu@5.0.15(expo@51.0.6):
+    resolution: {integrity: sha512-a5aADQXOH/uw2NDy4fbgVl9wkAcZIfkrz8yzwQz0X6Yvf0a68zafqxSvvYkq+MmUTrFsuiST49s+mk4uRqHJMw==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 51.0.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3)
+      expo-dev-menu-interface: 1.8.3(expo@51.0.6)
+      semver: 7.6.0
+    dev: false
+
   /expo-device@6.0.2(expo@51.0.6):
     resolution: {integrity: sha512-sCt91CuTmAuMXX4SlFOn4lIos2UIr8vb0jDstDDZXys6kErcj0uynC7bQAMreU5uRUTKMAl4MAMpKt9ufCXPBw==}
     peerDependencies:
@@ -8208,6 +8258,10 @@ packages:
       expo: 51.0.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3)
     dev: false
 
+  /expo-json-utils@0.13.1:
+    resolution: {integrity: sha512-mlfaSArGVb+oJmUcR22jEONlgPp0wj4iNIHfQ2je9Q8WTOqMc0Ws9tUciz3JdJnhffdHqo/k8fpvf0IRmN5HPA==}
+    dev: false
+
   /expo-keep-awake@13.0.1(expo@51.0.6):
     resolution: {integrity: sha512-Kqv8Bf1f5Jp7YMUgTTyKR9GatgHJuAcC8vVWDEkgVhB3O7L3pgBy5MMSMUhkTmRRV6L8TZe/rDmjiBoVS/soFA==}
     peerDependencies:
@@ -8223,6 +8277,18 @@ packages:
       invariant: 2.2.4
     transitivePeerDependencies:
       - expo
+      - supports-color
+    dev: false
+
+  /expo-manifests@0.14.3(expo@51.0.6):
+    resolution: {integrity: sha512-L3b5/qocBPiQjbW0cpOHfnqdKZbTJS7sA3mgeDJT+mWga/xYsdpma1EfNmsuvrOzjLGjStr1k1fceM9Bl49aqQ==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      '@expo/config': 9.0.1
+      expo: 51.0.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3)
+      expo-json-utils: 0.13.1
+    transitivePeerDependencies:
       - supports-color
     dev: false
 
@@ -8352,6 +8418,14 @@ packages:
       expo: 51.0.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3)
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /expo-updates-interface@0.16.2(expo@51.0.6):
+    resolution: {integrity: sha512-929XBU70q5ELxkKADj1xL0UIm3HvhYhNAOZv5DSk7rrKvLo7QDdPyl+JVnwZm9LrkNbH4wuE2rLoKu1KMgZ+9A==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 51.0.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3)
     dev: false
 
   /expo-web-browser@13.0.3(expo@51.0.6):
@@ -8798,6 +8872,7 @@ packages:
 
   /glob@6.0.4:
     resolution: {integrity: sha512-MKZeRNyYZAVVVG1oZeLaWie1uweH40m9AZwIwxyPbTSX4hHrVYSzLg0Ro5Z5R7XKkIX+Cc6oD1rqeDJnwsB8/A==}
+    deprecated: Glob versions prior to v9 are no longer supported
     requiresBuild: true
     dependencies:
       inflight: 1.0.6
@@ -8819,6 +8894,7 @@ packages:
 
   /glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
+    deprecated: Glob versions prior to v9 are no longer supported
     dependencies:
       fs.realpath: 1.0.0
       inflight: 1.0.6
@@ -9153,6 +9229,7 @@ packages:
 
   /inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
+    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
     dependencies:
       once: 1.4.0
       wrappy: 1.0.2
