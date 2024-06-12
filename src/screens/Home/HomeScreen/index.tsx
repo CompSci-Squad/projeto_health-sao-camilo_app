@@ -60,7 +60,6 @@ const HomeScreen = () => {
       setPressure(responses[3]);
       setImc((responses[2] / (responses[1] / 100) ** 2).toFixed(2));
       setIsLoading(false);
-      
     } catch (error) {
       console.error(error);
     } finally {

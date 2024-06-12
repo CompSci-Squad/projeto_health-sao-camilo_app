@@ -8,6 +8,7 @@ import {
 } from "@gluestack-ui/themed";
 import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useState } from "react";
+
 import { useUserStore } from "../../utils/stores/userStore";
 import { supabase } from "../../utils/supabase/supbase";
 

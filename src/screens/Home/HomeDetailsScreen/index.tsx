@@ -11,14 +11,14 @@ import {
 } from "@gluestack-ui/themed";
 import { PostgrestResponse } from "@supabase/supabase-js";
 import { useFocusEffect, useGlobalSearchParams, useRouter } from "expo-router";
+import { PlusIcon } from "lucide-react-native";
 import { useCallback, useState } from "react";
 
 import HomeDetailsCard from "../../../components/HomeDetailsCard";
+import ReturnButton from "../../../components/ReturnButton";
+import ScreenContainer from "../../../components/ScreenContainer";
 import { getHomeDetailInformation } from "../../../utils/functions/home/getHomeDetailInformation";
 import { useUserStore } from "../../../utils/stores/userStore";
-import { PlusIcon } from "lucide-react-native";
-import ScreenContainer from "../../../components/ScreenContainer";
-import ReturnButton from "../../../components/ReturnButton";
 
 const determineText = (text: string) => {
   switch (text) {

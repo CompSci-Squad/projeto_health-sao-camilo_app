@@ -17,11 +17,11 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 
+import CustomToast from "../../../components/CustomToast";
 import ReturnButton from "../../../components/ReturnButton";
 import ScreenContainer from "../../../components/ScreenContainer";
-import { useUserStore } from "../../../utils/stores/userStore";
 import { createNewRecord } from "../../../utils/functions/home/createNewRecord";
-import CustomToast from "../../../components/CustomToast";
+import { useUserStore } from "../../../utils/stores/userStore";
 
 const determineText = (text: string) => {
   switch (text) {

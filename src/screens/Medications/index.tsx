@@ -1,37 +1,37 @@
 import {
-  FlatList,
-  HStack,
-  Spinner,
-  Text,
   Box,
   Button,
+  FlatList,
+  HStack,
   Icon,
+  Spinner,
+  Text,
 } from "@gluestack-ui/themed";
 import { useFocusEffect, useRouter } from "expo-router";
 import { PlusIcon } from "lucide-react-native";
 import { useCallback, useState } from "react";
 
-import ExamCard from "../../../components/ExamCard";
-import ScreenContainer from "../../../components/ScreenContainer";
-import { getExams } from "../../../utils/functions/exams/getExams";
-import { useUserStore } from "../../../utils/stores/userStore";
+import { getMedications } from "../../utils/functions/medications/getMedications";
+import { useUserStore } from "../../utils/stores/userStore";
 
-const ExamHomeScreen = () => {
-  const { user } = useUserStore();
+import MedicationsCard from "@/components/MedicationsCard";
+import ScreenContainer from "@/components/ScreenContainer";
+
+const MedicationsHome = () => {
   const router = useRouter();
   const [data, setData] = useState<any>();
   const [isLoading, setIsLoading] = useState(false);
-
-  const fetchExams = async () => {
+  const { user } = useUserStore();
+  const fetchMedications = async () => {
     setIsLoading(true);
-    const response = (await getExams(user!.id)) ?? [];
-    setData(response);
+    const response = await getMedications(user?.id!);
+    setData(response ?? null);
     setIsLoading(false);
   };
 
   useFocusEffect(
     useCallback(() => {
-      fetchExams();
+      fetchMedications();
     }, []),
   );
 
@@ -49,15 +49,17 @@ const ExamHomeScreen = () => {
         <FlatList
           data={data}
           renderItem={({ item }: { item: any }) => (
-            <ExamCard
-              id={item?.id}
-              key={item.id}
-              date={item.created_at}
-              category={item.category}
-              examFileName={item?.exam_file_name}
+            <MedicationsCard
+              name={item.name}
+              dosage={item.dosage}
+              endDate={item.endDate}
+              isContinuos={item.isContinuos}
+              interval={item.interval_in_minutes / 60}
+              id={item.id}
+              fetchMedications={fetchMedications}
             />
           )}
-          keyExtractor={(item: any) => item.created_at.toString()}
+          keyExtractor={(item: any) => item.id}
         />
         <Box
           display="flex"
@@ -69,7 +71,7 @@ const ExamHomeScreen = () => {
             mb="$4"
             bgColor="$hospitalGreen"
             borderRadius="$full"
-            onPress={() => router.navigate("/(tabs)/exams/createExam")}
+            onPress={() => router.navigate("/createMedications")}
           >
             <Icon as={PlusIcon} color="$white" size="lg" />
           </Button>
@@ -79,4 +81,4 @@ const ExamHomeScreen = () => {
   );
 };
 
-export default ExamHomeScreen;
+export default MedicationsHome;

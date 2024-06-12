@@ -11,16 +11,16 @@ import {
   Spinner,
   Text,
 } from "@gluestack-ui/themed";
-import { useRouter } from "expo-router";
 import * as DocumentPicker from "expo-document-picker";
 import * as FileSystem from "expo-file-system";
+import { useRouter } from "expo-router";
+import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 
 import ReturnButton from "../../../components/ReturnButton";
 import ScreenContainer from "../../../components/ScreenContainer";
-import { useUserStore } from "../../../utils/stores/userStore";
-import { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
 import { createExam } from "../../../utils/functions/exams/createExam";
+import { useUserStore } from "../../../utils/stores/userStore";
 
 const CreateExamScreen = () => {
   const router = useRouter();
@@ -68,7 +68,7 @@ const CreateExamScreen = () => {
         exam.name,
       );
     } catch (error) {
-      console.log(error)
+      console.log(error);
     } finally {
       setIsLoading(false);
     }

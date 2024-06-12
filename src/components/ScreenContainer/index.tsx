@@ -1,6 +1,6 @@
-import { StatusBar } from "expo-status-bar";
 import * as NavigationBar from "expo-navigation-bar";
 import { useFocusEffect } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import { useCallback } from "react";
 
 type StatusBarConfigProps = {
