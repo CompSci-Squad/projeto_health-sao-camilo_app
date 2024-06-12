@@ -1,4 +1,4 @@
-name: preview
+name: development build update
 on: 
     push:
         branches: ["main", "develop"]
